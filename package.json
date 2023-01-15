@@ -1,0 +1,25 @@
+{
+  "name": "shop-observer",
+  "version": "1.0.0",
+  "description": "Monitor webshops for new products and offers",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "npm run build && node build/index.js",
+    "start:dev": "npx nodemon",
+    "build": "rimraf ./build && tsc"
+  },
+  "author": "Tobais Emil Harbo",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "nodemon": "^2.0.20",
+    "rimraf": "^4.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "axios": "^1.2.2",
+    "cheerio": "^1.0.0-rc.12",
+    "rxjs": "^7.8.0"
+  }
+}
