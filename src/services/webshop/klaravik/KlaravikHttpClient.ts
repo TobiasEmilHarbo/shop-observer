@@ -1,5 +1,6 @@
-import axios, { AxiosResponse } from "axios";
-import { from, Observable } from "rxjs";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { catchError, from, Observable, retry } from "rxjs";
+import { genericRetryConfig } from "../../genericRetryConfig";
 
 export class KlaravikHttpClient {
     private defaultPageSize = 30;
@@ -13,6 +14,12 @@ export class KlaravikHttpClient {
                 searchtext: searchString,
                 setperpage: pageSize
             }
-        }))
+    })).pipe(
+        retry(
+          genericRetryConfig({
+            excludedStatusCodeFamilies: [400],
+          })
+        )
+      )
     }
 }

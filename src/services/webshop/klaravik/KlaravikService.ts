@@ -1,5 +1,6 @@
+import { AxiosError } from "axios";
 import { load } from "cheerio";
-import { EMPTY, expand, map, Observable, reduce } from "rxjs";
+import { catchError, EMPTY, expand, map, Observable, of, reduce, throwError } from "rxjs";
 import { Item } from "../../../domain/Item";
 import { Page } from "../../../domain/Page";
 import { WebshopService } from "../WebshopService";
