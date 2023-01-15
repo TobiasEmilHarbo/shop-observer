@@ -1,7 +1,6 @@
-/* eslint-disable require-jsdoc */
-import {WebshopId} from "../external/WebshopId";
-import {KlaravikService} from "./webshop/klaravik/KlaravikService";
-import {WebshopService} from "./webshop/WebshopService";
+import { WebshopId } from "../external/WebshopId";
+import { KlaravikService } from "./webshop/klaravik/KlaravikService";
+import { WebshopService } from "./webshop/WebshopService";
 
 export class WebshopServiceFactory {
   private klaravikService: KlaravikService;

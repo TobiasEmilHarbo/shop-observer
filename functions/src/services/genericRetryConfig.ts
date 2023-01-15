@@ -1,5 +1,5 @@
-import {AxiosError, HttpStatusCode} from "axios";
-import {Observable, throwError, timer} from "rxjs";
+import { AxiosError, HttpStatusCode } from "axios";
+import { Observable, throwError, timer } from "rxjs";
 
 interface RetryParameters {
     scalingDuration?: number;
