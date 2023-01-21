@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/:shopId/', ({ params, query }, response) => {
 	const webShopId = params.shopId as WebshopId;
-	const searchQuery = query.searchQuery as string;
+	const searchQuery = query['search-query'] as string;
 	const webshopFactory = new WebshopServiceFactory();
 
 	const shop = webshopFactory.getWebshopService(webShopId);

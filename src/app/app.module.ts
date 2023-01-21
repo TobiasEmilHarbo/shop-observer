@@ -18,6 +18,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
 import { LogInComponent } from './components/pages/log-in/log-in.component';
+import { AuthInterceptor } from './intercepters/auth.interceptor';
 
 @NgModule({
 	declarations: [
@@ -26,7 +27,7 @@ import { LogInComponent } from './components/pages/log-in/log-in.component';
 		SearchFieldComponent,
 		ShopItemComponent,
 		SignUpComponent,
-  LogInComponent,
+		LogInComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -44,6 +45,11 @@ import { LogInComponent } from './components/pages/log-in/log-in.component';
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: BaseUrlInterceptor,
+			multi: true,
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
 			multi: true,
 		},
 	],

@@ -16,6 +16,10 @@ export class AuthService {
 		this.user$ = this.angularFireAuth.authState;
 	}
 
+	public getUser(): Observable<firebase.default.User | null> {
+		return this.user$;
+	}
+
 	public signUp(email: string, password: string) {
 		return from(
 			this.angularFireAuth.createUserWithEmailAndPassword(email, password)

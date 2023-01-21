@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Item } from 'functions/src/domain/Item';
 import { Page } from 'functions/src/domain/Page';
 import { WebshopId } from 'functions/src/external/WebshopId';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class HttpClientService {
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient, private authService: AuthService) {}
 
 	public searchShop(
 		shop: WebshopId,
@@ -17,7 +18,7 @@ export class HttpClientService {
 		page?: number
 	): Observable<Page<Item>> {
 		let params = new HttpParams();
-		params = params.set('searchQuery', query);
+		params = params.set('search-query', query);
 
 		if (page) {
 			params = params.set('page', page);

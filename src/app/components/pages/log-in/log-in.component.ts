@@ -23,7 +23,7 @@ export class LogInComponent {
 			return;
 		}
 
-		this.authService.logIn(email, password).subscribe((result) => {
+		this.authService.logIn(email, password).subscribe(() => {
 			this.router.navigate(['/']);
 		});
 	}
