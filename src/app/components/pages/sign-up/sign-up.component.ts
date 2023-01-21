@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,23 +14,17 @@ export class SignUpComponent {
 		password: new FormControl(''),
 	});
 
-	constructor(private authService: AuthService) {
-		this.authService.isLoggedIn().subscribe((value) => {
-			console.log('IS LOGGED IN', value);
-		});
-	}
+	constructor(private authService: AuthService, private router: Router) {}
 
 	public onSubmit(): void {
-		console.log('SIGN UP', this.signUpForm.value);
-
 		const { email, password } = this.signUpForm.value;
 
 		if (!email || !password) {
 			return;
 		}
 
-		this.authService.signUp(email, password).subscribe((result) => {
-			console.log(result);
+		this.authService.signUp(email, password).subscribe(() => {
+			this.router.navigate(['/']);
 		});
 	}
 }

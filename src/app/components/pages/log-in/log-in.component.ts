@@ -14,15 +14,9 @@ export class LogInComponent {
 		password: new FormControl(''),
 	});
 
-	constructor(private authService: AuthService, private router: Router) {
-		this.authService.isLoggedIn().subscribe((value) => {
-			console.log('IS LOGGED IN', value);
-		});
-	}
+	constructor(private authService: AuthService, private router: Router) {}
 
 	public onSubmit(): void {
-		console.log('SIGN UP', this.logInForm.value);
-
 		const { email, password } = this.logInForm.value;
 
 		if (!email || !password) {
@@ -30,7 +24,6 @@ export class LogInComponent {
 		}
 
 		this.authService.logIn(email, password).subscribe((result) => {
-			console.log(result);
 			this.router.navigate(['/']);
 		});
 	}
