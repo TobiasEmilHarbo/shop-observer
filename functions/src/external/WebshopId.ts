@@ -1,3 +1,1 @@
-export enum WebshopId {
-    KLARAVIK
-}
+export type WebshopId = 'KLARAVIK';

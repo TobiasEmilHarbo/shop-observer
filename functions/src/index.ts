@@ -1,11 +1,15 @@
-import * as functions from "firebase-functions";
+import * as bodyParser from 'body-parser';
+import * as express from 'express';
+import * as functions from 'firebase-functions';
+import shopApi from './api/v1/shopApi';
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+const v1 = express();
+const main = express();
 
-export const helloWorld = functions
-    .region("europe-west1")
-    .https.onRequest((request, response) => {
-      functions.logger.info("Hello logs!", {structuredData: true});
-      response.send("Hello from Firebase!");
-    });
+shopApi(v1);
+
+main.use('/v1', v1);
+main.use(bodyParser.json());
+main.use(bodyParser.urlencoded({ extended: false }));
+
+export const api = functions.region('europe-west1').https.onRequest(main);
