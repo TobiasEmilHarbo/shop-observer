@@ -1,1 +1,5 @@
-<p>home-page works!</p>
+<h1>Welcome to Shop Observer</h1>
+
+<div *ngFor="let item of items | async">
+	<h3>{{item.name}}</h3>
+</div>
