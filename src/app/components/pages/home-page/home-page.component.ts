@@ -14,9 +14,11 @@ export class HomePageComponent implements OnInit {
 
 	constructor(private http: HttpClientService) {}
 
-	public ngOnInit(): void {
+	public ngOnInit(): void {}
+
+	public search(query: string): void {
 		this.items = this.http
-			.searchShop('KLARAVIK')
+			.searchShop('KLARAVIK', query)
 			.pipe(map((page: Page<Item>) => page.items));
 	}
 }

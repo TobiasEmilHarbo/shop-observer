@@ -1,0 +1,9 @@
+<h3>{{item.name}}</h3>
+<img [src]="item.imageUrl" />
+<p>{{item.price}} {{item.currency}}</p>
+<a [href]="item.url">View</a>
+<ul *ngIf="item.specifications">
+	<li *ngFor="let spec of item.specifications">
+		<span class="label">{{spec.label}}:</span>&nbsp;<span>{{spec.value}}</span>
+	</li>
+</ul>

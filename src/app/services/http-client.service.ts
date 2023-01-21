@@ -11,10 +11,16 @@ import { Observable } from 'rxjs';
 export class HttpClientService {
 	constructor(private http: HttpClient) {}
 
-	public searchShop(shop: WebshopId, page?: number): Observable<Page<Item>> {
-		const params = new HttpParams();
+	public searchShop(
+		shop: WebshopId,
+		query: string,
+		page?: number
+	): Observable<Page<Item>> {
+		let params = new HttpParams();
+		params = params.set('searchQuery', query);
+
 		if (page) {
-			params.set('page', page);
+			params = params.set('page', page);
 		}
 
 		return this.http.get<Page<Item>>(`/v1/shops/${shop}`, {

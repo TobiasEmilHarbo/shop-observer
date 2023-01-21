@@ -16,11 +16,11 @@ export class KlaravikService implements WebshopService {
 		this.mapper = new KlaravikMapper(this.host);
 	}
 
-	public getAllItems(): Observable<Array<Item>> {
-		return this.getItemPage().pipe(
+	public getAllItems(query: string): Observable<Array<Item>> {
+		return this.search(query).pipe(
 			expand((page: Page<Item>) => {
 				if (page.totalPages > page.number) {
-					return this.getItemPage(page.number + 1);
+					return this.search(query, page.number + 1);
 				}
 				return EMPTY;
 			}),
@@ -38,8 +38,8 @@ export class KlaravikService implements WebshopService {
 		);
 	}
 
-	public getItemPage(pageNumber = 1): Observable<Page<Item>> {
-		return this.httpClient.query('traktor', pageNumber).pipe(
+	public search(query: string, pageNumber = 1): Observable<Page<Item>> {
+		return this.httpClient.query(query, pageNumber).pipe(
 			map((response) => load(response.data)('html')),
 			map((dom) => {
 				return this.mapper.toItemListPage(dom);
