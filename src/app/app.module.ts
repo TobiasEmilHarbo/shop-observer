@@ -9,7 +9,7 @@ import { BaseUrlInterceptor } from './intercepters/base-url.interceptor';
 import { SearchFieldComponent } from './components/atoms/search-field/search-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopItemComponent } from './components/atoms/shop-item/shop-item.component';
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -19,6 +19,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
 import { LogInComponent } from './components/pages/log-in/log-in.component';
 import { AuthInterceptor } from './intercepters/auth.interceptor';
+import { SearchQueryComponent } from './components/atoms/search-query/search-query.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './intercepters/auth.interceptor';
 		ShopItemComponent,
 		SignUpComponent,
 		LogInComponent,
+		SearchQueryComponent,
 	],
 	imports: [
 		BrowserModule,

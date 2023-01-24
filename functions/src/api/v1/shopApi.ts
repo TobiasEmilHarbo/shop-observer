@@ -4,19 +4,15 @@ import { WebshopServiceFactory } from '../../services/WebshopServiceFactory';
 
 const BASE = '/shops';
 const router = express.Router();
+const webshopFactory = new WebshopServiceFactory();
 
-router.get('/:shopId/', ({ params, query }, response) => {
+router.get('/:shopId/', async ({ params, query }, response) => {
 	const webShopId = params.shopId as WebshopId;
 	const searchQuery = query['search-query'] as string;
-	const webshopFactory = new WebshopServiceFactory();
-
 	const shop = webshopFactory.getWebshopService(webShopId);
+	const page = await shop.search(searchQuery);
 
-	const page$ = shop.search(searchQuery);
-
-	page$.subscribe((page) => {
-		return response.json(page);
-	});
+	response.json(page);
 });
 
 export default (api: express.Express) => {

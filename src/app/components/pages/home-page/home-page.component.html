@@ -2,6 +2,10 @@
 
 <h1>Welcome to Shop Observer</h1>
 
+<button (click)="saveSearch()">Save search</button>
+
+<br>
+
 <app-search-field (doSearch)="search($event)"></app-search-field>
 
 <app-shop-item
@@ -9,3 +13,10 @@
 	[item]="item"
 	>
 </app-shop-item>
+
+<app-search-query
+	*ngFor="let search of searches | async"
+	[search]="search"
+	(deleteSearch)="deleteSearch($event)"
+	>
+</app-search-query>

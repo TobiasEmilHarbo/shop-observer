@@ -1,6 +1,4 @@
 import axios, { AxiosResponse } from 'axios';
-import { from, Observable, retry } from 'rxjs';
-import { genericRetryConfig } from '../../genericRetryConfig';
 
 export class KlaravikHttpClient {
 	private defaultPageSize = 30;
@@ -12,20 +10,12 @@ export class KlaravikHttpClient {
 		searchString: string,
 		pageNumber: number = this.defaultPageNumber,
 		pageSize: number = this.defaultPageSize
-	): Observable<AxiosResponse<string, unknown>> {
-		return from(
-			axios.get(`${this.host}/auction/${pageNumber}/`, {
-				params: {
-					searchtext: searchString,
-					setperpage: pageSize,
-				},
-			})
-		).pipe(
-			retry(
-				genericRetryConfig({
-					excludedStatusCodeFamilies: [400],
-				})
-			)
-		);
+	): Promise<AxiosResponse<string, unknown>> {
+		return axios.get(`${this.host}/auction/${pageNumber}/`, {
+			params: {
+				searchtext: searchString,
+				setperpage: pageSize,
+			},
+		});
 	}
 }

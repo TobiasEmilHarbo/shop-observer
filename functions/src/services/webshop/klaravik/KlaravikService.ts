@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { EMPTY, expand, map, Observable, reduce } from 'rxjs';
+// import { EMPTY, expand, from, map, Observable, reduce } from 'rxjs';
 import { Item } from '../../../domain/Item';
 import { Page } from '../../../domain/Page';
 import { WebshopService } from '../WebshopService';
@@ -16,34 +16,31 @@ export class KlaravikService implements WebshopService {
 		this.mapper = new KlaravikMapper(this.host);
 	}
 
-	public getAllItems(query: string): Observable<Array<Item>> {
-		return this.search(query).pipe(
-			expand((page: Page<Item>) => {
-				if (page.totalPages > page.number) {
-					return this.search(query, page.number + 1);
-				}
-				return EMPTY;
-			}),
-			reduce((accumulatedPages, page) => {
-				return {
-					items: [...accumulatedPages.items, ...page.items],
-					size: accumulatedPages.size + page.items.length,
-					number: 1,
-					totalPages: 1,
-				};
-			}),
-			map((accumulatedPage) => {
-				return accumulatedPage.items;
-			})
-		);
-	}
+	// public getAllItems(query: string): Observable<Array<Item>> {
+	// 	return from(this.search(query)).pipe(
+	// 		expand((page: Page<Item>) => {
+	// 			if (page.totalPages > page.number) {
+	// 				return this.search(query, page.number + 1);
+	// 			}
+	// 			return EMPTY;
+	// 		}),
+	// 		reduce((accumulatedPages, page) => {
+	// 			return {
+	// 				items: [...accumulatedPages.items, ...page.items],
+	// 				size: accumulatedPages.size + page.items.length,
+	// 				number: 1,
+	// 				totalPages: 1,
+	// 			};
+	// 		}),
+	// 		map((accumulatedPage) => {
+	// 			return accumulatedPage.items;
+	// 		})
+	// 	);
+	// }
 
-	public search(query: string, pageNumber = 1): Observable<Page<Item>> {
-		return this.httpClient.query(query, pageNumber).pipe(
-			map((response) => load(response.data)('html')),
-			map((dom) => {
-				return this.mapper.toItemListPage(dom);
-			})
-		);
+	public async search(query: string, pageNumber = 1): Promise<Page<Item>> {
+		const response = await this.httpClient.query(query, pageNumber);
+		const dom = load(response.data)('html');
+		return this.mapper.toItemListPage(dom);
 	}
 }
