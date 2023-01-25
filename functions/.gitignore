@@ -9,5 +9,4 @@ typings/
 node_modules/
 
 # Debug logs
-ui-debug.log
-firebase-debug.log
+*-debug.log

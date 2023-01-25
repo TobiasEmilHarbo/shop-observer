@@ -1,4 +1,5 @@
-export interface Item {
+/* eslint-disable semi */
+export default interface Item {
 	id: string;
 	name: string;
 	url: string;

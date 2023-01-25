@@ -2,10 +2,12 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as functions from 'firebase-functions';
-import shopApi from './api/v1/shopApi';
-
 import * as admin from 'firebase-admin';
+
+import shopApi from './api/v1/shopApi';
 import auth from './middleware/auth.middleware';
+
+export * as searchQueries from './collections/searchQuery';
 
 admin.initializeApp();
 

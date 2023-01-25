@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Item } from 'functions/src/domain/Item';
-import { Page } from 'functions/src/domain/Page';
+import Item from 'functions/src/domain/Item';
+import Page from 'functions/src/domain/Page';
 import { WebshopId } from 'functions/src/external/WebshopId';
 import { Observable, take } from 'rxjs';
 import { AuthService } from './auth.service';

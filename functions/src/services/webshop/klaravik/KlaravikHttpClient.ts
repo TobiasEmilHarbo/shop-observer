@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-export class KlaravikHttpClient {
+export default class KlaravikHttpClient {
 	private defaultPageSize = 30;
 	private defaultPageNumber = 1;
 

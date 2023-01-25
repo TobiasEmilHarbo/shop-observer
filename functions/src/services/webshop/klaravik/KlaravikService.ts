@@ -1,12 +1,11 @@
 import { load } from 'cheerio';
-// import { EMPTY, expand, from, map, Observable, reduce } from 'rxjs';
-import { Item } from '../../../domain/Item';
-import { Page } from '../../../domain/Page';
-import { WebshopService } from '../WebshopService';
-import { KlaravikHttpClient } from './KlaravikHttpClient';
-import { KlaravikMapper } from './KlaravikMapper';
+import Item from '../../../domain/Item';
+import Page from '../../../domain/Page';
+import WebshopService from '../WebshopService';
+import KlaravikHttpClient from './KlaravikHttpClient';
+import KlaravikMapper from './KlaravikMapper';
 
-export class KlaravikService implements WebshopService {
+export default class KlaravikService implements WebshopService {
 	private httpClient: KlaravikHttpClient;
 	private mapper: KlaravikMapper;
 	private host = 'https://www.klaravik.dk';
@@ -16,27 +15,27 @@ export class KlaravikService implements WebshopService {
 		this.mapper = new KlaravikMapper(this.host);
 	}
 
-	// public getAllItems(query: string): Observable<Array<Item>> {
-	// 	return from(this.search(query)).pipe(
-	// 		expand((page: Page<Item>) => {
-	// 			if (page.totalPages > page.number) {
-	// 				return this.search(query, page.number + 1);
-	// 			}
-	// 			return EMPTY;
-	// 		}),
-	// 		reduce((accumulatedPages, page) => {
-	// 			return {
-	// 				items: [...accumulatedPages.items, ...page.items],
-	// 				size: accumulatedPages.size + page.items.length,
-	// 				number: 1,
-	// 				totalPages: 1,
-	// 			};
-	// 		}),
-	// 		map((accumulatedPage) => {
-	// 			return accumulatedPage.items;
-	// 		})
-	// 	);
-	// }
+	public async getItemsFromAllPages(query: string): Promise<Array<Item>> {
+		const firstPage = await this.search(query);
+
+		const pageSearches = [];
+
+		for (
+			let pageNumber = 2;
+			pageNumber <= firstPage.totalPages;
+			pageNumber++
+		) {
+			pageSearches.push(this.search(query, pageNumber));
+		}
+
+		const pages = await Promise.all(pageSearches);
+
+		const items = pages.reduce<Array<Item>>((items: Array<Item>, page) => {
+			return [...items, ...page.items];
+		}, firstPage.items);
+
+		return items;
+	}
 
 	public async search(query: string, pageNumber = 1): Promise<Page<Item>> {
 		const response = await this.httpClient.query(query, pageNumber);

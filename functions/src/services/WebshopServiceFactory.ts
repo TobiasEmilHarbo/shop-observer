@@ -1,8 +1,8 @@
 import { WebshopId } from '../external/WebshopId';
-import { KlaravikService } from './webshop/klaravik/KlaravikService';
-import { WebshopService } from './webshop/WebshopService';
+import KlaravikService from './webshop/klaravik/KlaravikService';
+import WebshopService from './webshop/WebshopService';
 
-export class WebshopServiceFactory {
+export default class WebshopServiceFactory {
 	private klaravikService: KlaravikService;
 
 	constructor() {

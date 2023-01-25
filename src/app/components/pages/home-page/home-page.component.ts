@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from 'functions/src/domain/Item';
-import { Page } from 'functions/src/domain/Page';
-import { SearchQuery } from 'functions/src/domain/SearchQuery';
+import Item from 'functions/src/domain/Item';
+import Page from 'functions/src/domain/Page';
+import SearchQuery from 'functions/src/domain/SearchQuery';
 import { first, map, Observable, switchMap, tap } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
@@ -76,6 +76,6 @@ export class HomePageComponent implements OnInit {
 	}
 
 	public deleteSearch(searchId: string) {
-		console.log('DELETE', searchId);
+		this.database.collection('search-queries').doc(searchId).delete();
 	}
 }

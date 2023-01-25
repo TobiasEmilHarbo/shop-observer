@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { WebshopId } from '../../external/WebshopId';
-import { WebshopServiceFactory } from '../../services/WebshopServiceFactory';
+import WebshopServiceFactory from '../../services/WebshopServiceFactory';
 
 const BASE = '/shops';
 const router = express.Router();
@@ -13,6 +13,15 @@ router.get('/:shopId/', async ({ params, query }, response) => {
 	const page = await shop.search(searchQuery);
 
 	response.json(page);
+});
+
+router.get('/:shopId/all', async ({ params, query }, response) => {
+	const webShopId = params.shopId as WebshopId;
+	const searchQuery = query['search-query'] as string;
+	const shop = webshopFactory.getWebshopService(webShopId);
+	const items = await shop.getItemsFromAllPages(searchQuery);
+
+	response.json(items);
 });
 
 export default (api: express.Express) => {

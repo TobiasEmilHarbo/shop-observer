@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Item } from 'functions/src/domain/Item';
+import Item from 'functions/src/domain/Item';
 
 @Component({
 	selector: 'app-shop-item',

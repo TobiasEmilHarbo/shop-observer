@@ -1,6 +1,7 @@
+/* eslint-disable semi */
 import { WebshopId } from '../external/WebshopId';
 
-export interface SearchQuery {
+export default interface SearchQuery {
 	userId: string;
 	query: string;
 	shopId: WebshopId;

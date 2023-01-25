@@ -1,4 +1,5 @@
-export interface Price {
+/* eslint-disable semi */
+export default interface Price {
 	price: string;
 	currency: string;
 }

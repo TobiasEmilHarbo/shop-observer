@@ -1,9 +1,9 @@
 import { Cheerio, CheerioAPI, Element, load } from 'cheerio';
-import { Item } from '../../../domain/Item';
-import { Page } from '../../../domain/Page';
-import { Price } from '../../../domain/Price';
+import Item from '../../../domain/Item';
+import Page from '../../../domain/Page';
+import Price from '../../../domain/Price';
 
-export class KlaravikMapper {
+export default class KlaravikMapper {
 	constructor(private host: string) {}
 
 	public toItemListPage(dom: Cheerio<Element>): Page<Item> {
