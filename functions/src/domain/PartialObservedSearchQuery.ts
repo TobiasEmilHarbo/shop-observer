@@ -3,4 +3,5 @@ export default interface PartialObservedSearchQuery {
 	id: string;
 	itemIds: Array<string>;
 	createTime: number;
+	updateTime: number;
 }

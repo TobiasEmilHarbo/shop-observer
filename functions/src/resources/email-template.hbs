@@ -1,0 +1,12 @@
+<style> h1 { color:red; }</style>
+<h1>Hej fra Shop Observer</h1>
+
+<p>Der er nye produkter fundet på en søgning, du har sat mig til at observerer</p>
+
+<h3><a href="{{shopUrl}}">{{shopName}}</a></h3>
+
+<ul>
+  {{#each items}}
+    <li>{{this.name}}</li>
+  {{/each}}
+</ul>

@@ -1,13 +1,9 @@
 import { WebshopId } from '../external/WebshopId';
-import KlaravikService from './webshop/klaravik/KlaravikService';
-import WebshopService from './webshop/WebshopService';
+import KlaravikService from './webshops/klaravik/KlaravikService';
+import WebshopService from './webshops/WebshopService';
 
 export default class WebshopServiceFactory {
-	private klaravikService: KlaravikService;
-
-	constructor() {
-		this.klaravikService = new KlaravikService();
-	}
+	constructor(private klaravikService = new KlaravikService()) {}
 
 	public getWebshopService(webshopId: WebshopId): WebshopService {
 		switch (webshopId) {

@@ -1,29 +1,23 @@
 import * as functions from 'firebase-functions';
-import Item from '../domain/Item';
-import PartialObservedSearchQuery from '../domain/PartialObservedSearchQuery';
+import { Collection } from '../domain/Collection';
 import SearchQuery from '../domain/SearchQuery';
-import WebshopServiceFactory from '../services/WebshopServiceFactory';
+import ShopObserver from '../services/ShopObserver';
 
-const webshopServiceFactory = new WebshopServiceFactory();
+const shopObserver = new ShopObserver();
 
-exports.searchQueries = functions.firestore
-	.document('search-queries/{documentId}')
+export default functions.firestore
+	.document(`${Collection.SEARCH_QURIES}/{id}`)
 	.onCreate(async (snapshot) => {
-		const data = snapshot.data() as SearchQuery;
-		const shopService = webshopServiceFactory.getWebshopService(
-			data.shopId
-		);
-
-		const items = await shopService.getItemsFromAllPages(data.query);
-		const itemIds = items.map((item: Item) => item.id);
+		const searchQuery = snapshot.data() as SearchQuery;
 		const createTime = snapshot.createTime.toMillis();
 		const id = snapshot.id;
 
-		const partialSearchQuery: PartialObservedSearchQuery = {
-			id,
-			createTime,
-			itemIds,
-		};
+		const observedSearchQuery =
+			await shopObserver.createObservedSearchQuery(
+				id,
+				createTime,
+				searchQuery
+			);
 
-		snapshot.ref.set(partialSearchQuery, { merge: true });
+		snapshot.ref.set(observedSearchQuery, { merge: true });
 	});

@@ -9,10 +9,19 @@ export default class KlaravikService implements WebshopService {
 	private httpClient: KlaravikHttpClient;
 	private mapper: KlaravikMapper;
 	private host = 'https://www.klaravik.dk';
+	private name = 'Klaravik';
 
 	constructor() {
 		this.httpClient = new KlaravikHttpClient(this.host);
 		this.mapper = new KlaravikMapper(this.host);
+	}
+
+	public getName(): string {
+		return this.name;
+	}
+
+	public getHost(): string {
+		return this.host;
 	}
 
 	public async getItemsFromAllPages(query: string): Promise<Array<Item>> {
