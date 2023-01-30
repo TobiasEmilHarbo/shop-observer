@@ -2,7 +2,7 @@
 import Notification from './Notification';
 
 export default interface Email {
-	to: string | undefined;
+	toUids: Array<string>;
 	template: {
 		name: string;
 		data: Notification;

@@ -12,6 +12,7 @@ admin.initializeApp();
 
 export * as searchQueries from './collections/searchQuery';
 export * as observationQueue from './collections/observationQueue';
+export * as createUser from './auth/createUser';
 // export * as scheduler from './schedulers';
 
 const shopObserver = new ShopObserver();

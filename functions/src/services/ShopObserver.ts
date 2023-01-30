@@ -40,8 +40,9 @@ export default class ShopObserver {
 			.collection(Collection.SEARCH_QURIES)
 			.get();
 
-		const documentUpdates = collection.docs.map((document) => {
-			const searchQuery = document.data();
+		const documentUpdates = collection.docs.map(async (document) => {
+			const searchQuery = document.data() as ObservedSearchQuery;
+
 			return this.database
 				.collection(Collection.SEARCH_QUERY_INSPECTIONS)
 				.add(searchQuery);

@@ -16,12 +16,11 @@ export default class Notifier {
 		shopId: WebshopId,
 		newResultItems: Array<Item>
 	): Promise<void> {
-		const user = await admin.auth().getUser(userId);
 		const webshopService =
 			this.webshopServiceFactory.getWebshopService(shopId);
 
 		const notification: Email = {
-			to: user.email,
+			toUids: [userId],
 			template: {
 				name: 'new-shop-items-notification',
 				data: {
