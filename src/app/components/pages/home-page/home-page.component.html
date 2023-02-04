@@ -4,19 +4,22 @@
 
 <button (click)="saveSearch()">Observe search</button>
 
-<br>
+<br />
 
 <app-search-field (doSearch)="search($event)"></app-search-field>
 
-<app-shop-item
-	*ngFor="let item of items | async"
-	[item]="item"
-	>
-</app-shop-item>
+<ng-container *ngIf="searchResultPage$ | async as resultPage">
+	<app-pagination
+		[currentPage]="resultPage.number"
+		[totalPages]="resultPage.totalPages"
+		(onPageSelect)="pageSelect($event)"
+	></app-pagination>
+	<app-search-result-page [page]="resultPage"> </app-search-result-page>
+</ng-container>
 
 <app-search-query
-	*ngFor="let search of searches | async"
+	*ngFor="let search of observedSearches$ | async"
 	[search]="search"
 	(deleteSearch)="deleteSearch($event)"
-	>
+>
 </app-search-query>

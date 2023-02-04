@@ -2,11 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import Item from 'functions/src/domain/Item';
 import Page from 'functions/src/domain/Page';
 import SearchQuery from 'functions/src/domain/SearchQuery';
-import { first, map, Observable, switchMap, tap } from 'rxjs';
+import {
+	first,
+	Observable,
+	of,
+	ReplaySubject,
+	switchMap,
+	take,
+	tap,
+} from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClientService } from 'src/app/services/http-client.service';
 import { ObservedSearchQuery } from 'functions/src/domain/ObservedSearchQuery';
+import { Collection } from 'functions/src/domain/Collection';
 
 @Component({
 	selector: 'app-home-page',
@@ -14,9 +23,16 @@ import { ObservedSearchQuery } from 'functions/src/domain/ObservedSearchQuery';
 	styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-	public items!: Observable<Array<Item>>;
-	public searches!: Observable<Array<ObservedSearchQuery>>;
+	public observedSearches$!: Observable<Array<ObservedSearchQuery>>;
 	public currentSearch!: string;
+	public currentSearchResultPage$!: Observable<Page<Item> | null>;
+
+	public searchResultPage$!: Observable<Page<Item> | null>;
+
+	private searchQuery$ = new ReplaySubject<{
+		searchString: string;
+		page?: number;
+	}>(1);
 
 	constructor(
 		private http: HttpClientService,
@@ -25,22 +41,36 @@ export class HomePageComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.searches = this.authService.getUser().pipe(
+		this.observedSearches$ = this.authService.getUser().pipe(
 			switchMap((user) => {
 				return this.database
-					.collection('search-queries', (reference) =>
+					.collection(Collection.SEARCH_QURIES, (reference) =>
 						reference.where('userId', '==', user?.uid)
 					)
 					.valueChanges() as Observable<Array<ObservedSearchQuery>>;
+			})
+		);
+
+		this.searchResultPage$ = this.searchQuery$.pipe(
+			switchMap((searchQuery) => {
+				if (!searchQuery?.searchString?.trim()) {
+					return of(null);
+				}
+				return this.http.searchShop(
+					'MOCK',
+					searchQuery.searchString,
+					searchQuery.page ?? 1
+				);
 			})
 		);
 	}
 
 	public search(searchQuery: string): void {
 		this.currentSearch = searchQuery;
-		this.items = this.http
-			.searchShop('KLARAVIK', searchQuery)
-			.pipe(map((page: Page<Item>) => page.items));
+
+		this.searchQuery$.next({
+			searchString: searchQuery,
+		});
 	}
 
 	public signOut(): void {
@@ -52,7 +82,7 @@ export class HomePageComponent implements OnInit {
 			return;
 		}
 
-		this.searches
+		this.observedSearches$
 			.pipe(
 				first(),
 				tap((searches) => {
@@ -67,15 +97,27 @@ export class HomePageComponent implements OnInit {
 				switchMap(() => this.authService.getUser().pipe(first()))
 			)
 			.subscribe((user) => {
-				this.database.collection('search-queries').add({
+				this.database.collection(Collection.SEARCH_QURIES).add({
 					userId: user?.uid,
-					shopId: 'KLARAVIK',
+					shopId: 'MOCK',
 					query: this.currentSearch,
 				} as SearchQuery);
 			});
 	}
 
 	public deleteSearch(searchId: string) {
-		this.database.collection('search-queries').doc(searchId).delete();
+		this.database
+			.collection(Collection.SEARCH_QURIES)
+			.doc(searchId)
+			.delete();
+	}
+
+	public async pageSelect(pageNumber: number) {
+		this.searchQuery$.pipe(take(1)).subscribe((searchQuery) => {
+			this.searchQuery$.next({
+				searchString: searchQuery.searchString,
+				page: pageNumber,
+			});
+		});
 	}
 }

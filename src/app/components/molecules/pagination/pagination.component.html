@@ -1,0 +1,16 @@
+<ng-container *ngIf="showPrevious">
+	<button (click)="previous()">&lt;</button>
+</ng-container>
+
+<ng-container *ngFor="let pageNumber of pageNumbers">
+	<button
+		(click)="selectPage(pageNumber)"
+		[ngClass]="{ 'current-page': this.currentPage == pageNumber }"
+	>
+		{{ pageNumber }}
+	</button>
+</ng-container>
+
+<ng-container *ngIf="showNext">
+	<button (click)="next()">&gt;</button>
+</ng-container>

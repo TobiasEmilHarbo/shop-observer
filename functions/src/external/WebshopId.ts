@@ -1,1 +1,1 @@
-export type WebshopId = 'KLARAVIK';
+export type WebshopId = 'KLARAVIK' | 'MOCK';

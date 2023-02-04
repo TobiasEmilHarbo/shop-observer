@@ -9,17 +9,28 @@ export default class KlaravikMapper {
 	public toItemListPage(dom: Cheerio<Element>): Page<Item> {
 		const items = this.toItemList(dom);
 
-		const number = dom.find('ul.paginator a.selected').first().text();
-		const totalPage = dom
-			.find('div.pagination')
-			.first()
-			.find('li:nth-last-child(2) a')
-			.text();
+		const number = dom.find('div.pagination a.selected').first().text();
+
 		const size = dom
 			.find('select.select_page')
 			.first()
 			.find('option[selected]')
 			.text();
+
+		const paginationDom = dom.find('div.pagination').first();
+
+		const textOfLastPaginationButton = paginationDom
+			.find('li:last-child a')
+			.text();
+
+		const textOfSecondLastPaginationButton = paginationDom
+			.find('li:nth-last-child(2) a')
+			.text();
+
+		const totalPage =
+			textOfLastPaginationButton !== '>'
+				? textOfLastPaginationButton
+				: textOfSecondLastPaginationButton;
 
 		return {
 			items: items,

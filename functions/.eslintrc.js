@@ -33,5 +33,6 @@ module.exports = {
 		'no-tabs': 0,
 		'object-curly-spacing': 0,
 		'new-cap': 0,
+		'operator-linebreak': ["error", "after", { "overrides": { "?": "before", ":": "before" } }]
     },
 };

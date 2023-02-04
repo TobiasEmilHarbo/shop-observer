@@ -31,7 +31,7 @@ main.use('/v1', auth, v1);
 
 main.use('/check-saved-search-queries', async (_, response) => {
 	await shopObserver.queueSearchQueriesForInspection();
-	return response.send('Done');
+	response.send('Done');
 });
 
 export const api = functions.region('europe-west1').https.onRequest(main);
