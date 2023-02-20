@@ -1,0 +1,25 @@
+:host {
+	header {
+
+		div.logo {
+			display: grid;
+			grid-template-columns: 88px auto;
+			grid-template-rows: 80px;
+			margin: 16px;
+
+			h1 {
+				margin: 0;
+				line-height: 40px;
+				align-self: center;
+			}
+
+			span.icon {
+				display: block;
+				background-image: url('./../../../../assets/images/binoculars_64.png');
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		}
+
+	}
+}

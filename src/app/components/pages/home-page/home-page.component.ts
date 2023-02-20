@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpClientService } from 'src/app/services/http-client.service';
 import { ObservedSearchQuery } from 'functions/src/domain/ObservedSearchQuery';
 import { Collection } from 'functions/src/domain/Collection';
+import { WebshopId } from 'functions/src/external/WebshopId';
 
 @Component({
 	selector: 'app-home-page',
@@ -28,6 +29,8 @@ export class HomePageComponent implements OnInit {
 	public currentSearchResultPage$!: Observable<Page<Item> | null>;
 
 	public searchResultPage$!: Observable<Page<Item> | null>;
+
+	private webshopId: WebshopId = 'KLARAVIK';
 
 	private searchQuery$ = new ReplaySubject<{
 		searchString: string;
@@ -57,12 +60,14 @@ export class HomePageComponent implements OnInit {
 					return of(null);
 				}
 				return this.http.searchShop(
-					'MOCK',
+					this.webshopId,
 					searchQuery.searchString,
 					searchQuery.page ?? 1
 				);
 			})
 		);
+
+		this.search('aw');
 	}
 
 	public search(searchQuery: string): void {
@@ -99,7 +104,7 @@ export class HomePageComponent implements OnInit {
 			.subscribe((user) => {
 				this.database.collection(Collection.SEARCH_QURIES).add({
 					userId: user?.uid,
-					shopId: 'MOCK',
+					shopId: this.webshopId,
 					query: this.currentSearch,
 				} as SearchQuery);
 			});

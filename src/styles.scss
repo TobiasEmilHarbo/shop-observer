@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+	font-family: 'Nunito';
+	src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf');
+}
+
+* {
+	box-sizing: border-box;
+	font-family: 'Nunito';
+}
+
+body {
+	margin: 0;
+}

@@ -14,10 +14,9 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 	styleUrls: ['./search-field.component.scss'],
 })
 export class SearchFieldComponent implements OnInit, OnDestroy {
-	@Output()
-	public doSearch = new EventEmitter<string>();
-	@Input()
-	public debounceTime: number = 400;
+	@Output() public doSearch = new EventEmitter<string>();
+	@Input() public debounceTime: number = 400;
+	@Input() public placeholderText = 'Search';
 
 	public debouncer = new Subject<string>();
 	public queryString!: string;

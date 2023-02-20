@@ -1,12 +1,19 @@
-<button (click)="signOut()">sign out</button>
+<!-- <button (click)="signOut()">sign out</button> -->
 
-<h1>Welcome to Shop Observer</h1>
+<header>
+	<div class="logo">
+		<span class="icon"></span>
+		<h1>Shop Observer</h1>
+	</div>
+</header>
 
 <button (click)="saveSearch()">Observe search</button>
 
 <br />
 
 <app-search-field (doSearch)="search($event)"></app-search-field>
+
+<br />
 
 <ng-container *ngIf="searchResultPage$ | async as resultPage">
 	<app-pagination
