@@ -30,7 +30,7 @@ export class HomePageComponent implements OnInit {
 
 	public searchResultPage$!: Observable<Page<Item> | null>;
 
-	private webshopId: WebshopId = 'KLARAVIK';
+	private webshopId: WebshopId = 'MOCK';
 
 	private searchQuery$ = new ReplaySubject<{
 		searchString: string;
@@ -82,7 +82,7 @@ export class HomePageComponent implements OnInit {
 		this.authService.signOut();
 	}
 
-	public saveSearch(): void {
+	public addSearchToObservation(): void {
 		if (!this.currentSearch) {
 			return;
 		}

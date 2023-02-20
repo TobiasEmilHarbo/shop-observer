@@ -1,6 +1,5 @@
 :host {
 	header {
-
 		div.logo {
 			display: grid;
 			grid-template-columns: 88px auto;
@@ -20,6 +19,29 @@
 				background-position: center;
 			}
 		}
+	}
 
+	button.add-search-to-observation {
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		margin: 40px;
+		background-color: #fd8469;
+		border: 0;
+		padding: 8px;
+		border-radius: 100%;
+		font-size: 40px;
+		font-weight: bold;
+		color: white;
+		width: 64px;
+		height: 64px;
+		line-height: 0;
+		cursor: pointer;
+		-webkit-box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
+		box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
+
+		&:hover {
+			background-color: #d76950;
+		}
 	}
 }

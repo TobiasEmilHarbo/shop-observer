@@ -7,8 +7,6 @@
 	</div>
 </header>
 
-<button (click)="saveSearch()">Observe search</button>
-
 <br />
 
 <app-search-field (doSearch)="search($event)"></app-search-field>
@@ -30,3 +28,7 @@
 	(deleteSearch)="deleteSearch($event)"
 >
 </app-search-query>
+
+<button (click)="addSearchToObservation()" class="add-search-to-observation">
+	&#x2b;
+</button>
