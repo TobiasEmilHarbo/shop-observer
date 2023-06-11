@@ -32,6 +32,8 @@ export class HomePageComponent implements OnInit {
 
 	private webshopId: WebshopId = 'MOCK';
 
+	public showObservationsPanel = false;
+
 	private searchQuery$ = new ReplaySubject<{
 		searchString: string;
 		page?: number;
@@ -110,19 +112,25 @@ export class HomePageComponent implements OnInit {
 			});
 	}
 
-	public deleteSearch(searchId: string) {
+	public deleteSearch(searchId: string): void {
+		console.log('delete', searchId);
 		this.database
 			.collection(Collection.SEARCH_QURIES)
 			.doc(searchId)
-			.delete();
+			.delete()
+			.catch((error) => console.log(error));
 	}
 
-	public async pageSelect(pageNumber: number) {
+	public async pageSelect(pageNumber: number): Promise<void> {
 		this.searchQuery$.pipe(take(1)).subscribe((searchQuery) => {
 			this.searchQuery$.next({
 				searchString: searchQuery.searchString,
 				page: pageNumber,
 			});
 		});
+	}
+
+	public showObservations(): void {
+		this.showObservationsPanel = !this.showObservationsPanel;
 	}
 }

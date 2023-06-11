@@ -1,34 +1,52 @@
 <!-- <button (click)="signOut()">sign out</button> -->
-
 <header>
 	<div class="logo">
 		<span class="icon"></span>
 		<h1>Shop Observer</h1>
 	</div>
+
+	<button class="show-observations" (click)="showObservations()">
+		<span>&#8676;</span>
+	</button>
 </header>
 
-<br />
+<section class="search">
+	<header>
+		<img src="https://www.klaravik.dk/klaravik-web-icon-80x80.png" />
 
-<app-search-field (doSearch)="search($event)"></app-search-field>
+		<app-search-field
+			(doSearch)="search($event)"
+			[placeholderText]="'Search'"
+		></app-search-field>
 
-<br />
+		<app-pagination
+			*ngIf="searchResultPage$ | async as resultPage"
+			[currentPage]="resultPage.number"
+			[totalPages]="resultPage.totalPages"
+			(onPageSelect)="pageSelect($event)"
+		></app-pagination>
+	</header>
 
-<ng-container *ngIf="searchResultPage$ | async as resultPage">
-	<app-pagination
-		[currentPage]="resultPage.number"
-		[totalPages]="resultPage.totalPages"
-		(onPageSelect)="pageSelect($event)"
-	></app-pagination>
-	<app-search-result-page [page]="resultPage"> </app-search-result-page>
-</ng-container>
+	<app-search-result-page
+		*ngIf="searchResultPage$ | async as resultPage"
+		[page]="resultPage"
+	>
+	</app-search-result-page>
+</section>
 
-<app-search-query
-	*ngFor="let search of observedSearches$ | async"
-	[search]="search"
-	(deleteSearch)="deleteSearch($event)"
->
-</app-search-query>
+<aside [class]="{ 'observed-searches': true, show: showObservationsPanel }">
+	<header>
+		<button (click)="showObservations()" class="close">&#8677;</button>
+	</header>
 
-<button (click)="addSearchToObservation()" class="add-search-to-observation">
+	<app-search-query
+		*ngFor="let search of observedSearches$ | async"
+		[search]="search"
+		(deleteSearch)="deleteSearch($event)"
+	>
+	</app-search-query>
+</aside>
+
+<button (click)="addSearchToObservation()" class="add-search-to-observations">
 	&#x2b;
 </button>

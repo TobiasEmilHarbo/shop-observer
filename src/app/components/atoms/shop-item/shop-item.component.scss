@@ -1,7 +1,10 @@
 :host {
-	background-color: rgb(239, 239, 239);
+	background-color: #ffffff;
+	border: solid 1px #ededed;
+	border-radius: 8px;
 	display: block;
 	min-width: 0;
+	overflow: hidden;
 
 	div.product-image {
 		background-size: cover;
@@ -23,9 +26,10 @@
 		}
 
 		div.content {
-			padding: 8px;
+			padding: 16px;
 
 			h3 {
+				font-family: Arial, Helvetica, sans-serif;
 				text-transform: capitalize;
 			}
 

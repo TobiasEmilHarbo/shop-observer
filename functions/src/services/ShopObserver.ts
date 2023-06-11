@@ -13,8 +13,6 @@ export default class ShopObserver {
 	) {}
 
 	public async createObservedSearchQuery(
-		id: string,
-		createTime: number,
 		searchQuery: SearchQuery
 	): Promise<ObservedSearchQuery> {
 		const shopService = this.webshopServiceFactory.getWebshopService(
@@ -25,11 +23,9 @@ export default class ShopObserver {
 		const itemIds = items.map((item: Item) => item.id);
 
 		return {
-			id,
-			createTime,
-			updateTime: createTime,
-			itemIds,
 			...searchQuery,
+			itemIds,
+			updateTime: searchQuery.createTime,
 		};
 	}
 

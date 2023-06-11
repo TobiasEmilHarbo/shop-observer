@@ -16,7 +16,7 @@ export default class WebshopServiceFactory {
 			case 'MOCK':
 				return this.mockWebshopService;
 			default:
-				throw new Error(`No webshop found for id: ${webshopId}`);
+				throw new Error(`No webshop found for id: '${webshopId}'`);
 		}
 	}
 }

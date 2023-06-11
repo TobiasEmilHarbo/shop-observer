@@ -25,7 +25,9 @@ shopApi(v1);
 main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 main.use(
-	cors({ origin: ['http://localhost:4200', 'https://shop-observer.web.app'] })
+	cors({
+		origin: ['http://localhost:4200', 'https://shop-observer.web.app'],
+	})
 );
 main.use('/v1', auth, v1);
 

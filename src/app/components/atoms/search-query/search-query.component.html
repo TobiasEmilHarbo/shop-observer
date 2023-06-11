@@ -1,3 +1,17 @@
-<h3>{{ search.shopId }}</h3>
-<pre>{{ search.itemIds }}</pre>
-<button (click)="deleteSearch.emit(search.id)">Delete</button>
+<header>
+	<img src="https://www.klaravik.dk/klaravik-web-icon-80x80.png" />
+	<h4>{{ search.query }}</h4>
+</header>
+
+<div class="stats">
+	<ul>
+		<li>{{ search.shopId }}</li>
+		<li>{{ search.itemIds?.length }}</li>
+		<li>{{ search.updateTime }}</li>
+	</ul>
+</div>
+
+<div class="actions">
+	<button>&#8981;</button>
+	<button (click)="deleteSearch.emit(search.id)">&#9932;</button>
+</div>
