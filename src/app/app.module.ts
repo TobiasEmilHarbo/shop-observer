@@ -22,6 +22,7 @@ import { AuthInterceptor } from './intercepters/auth.interceptor';
 import { SearchQueryComponent } from './components/atoms/search-query/search-query.component';
 import { SearchResultPageComponent } from './components/molecules/search-result-page/search-result-page.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
+import { ShopPageComponent } from './components/pages/shop-page/shop-page.component';
 
 @NgModule({
 	declarations: [
@@ -34,6 +35,7 @@ import { PaginationComponent } from './components/molecules/pagination/paginatio
 		SearchQueryComponent,
 		SearchResultPageComponent,
 		PaginationComponent,
+		ShopPageComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -1,1 +1,5 @@
-<app-shop-item *ngFor="let item of page.items" [item]="item"></app-shop-item>
+<div *ngIf="isLoading; else showItems">Loading...</div>
+
+<ng-template #showItems>
+	<app-shop-item *ngFor="let item of items" [item]="item"></app-shop-item>
+</ng-template>

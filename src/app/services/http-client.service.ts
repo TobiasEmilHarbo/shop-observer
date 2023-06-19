@@ -2,8 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import Item from 'functions/src/domain/Item';
 import Page from 'functions/src/domain/Page';
-import { WebshopId } from 'functions/src/external/WebshopId';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -13,7 +12,7 @@ export class HttpClientService {
 	constructor(private http: HttpClient, private authService: AuthService) {}
 
 	public searchShop(
-		shop: WebshopId,
+		shop: string,
 		query: string,
 		page?: number
 	): Observable<Page<Item>> {

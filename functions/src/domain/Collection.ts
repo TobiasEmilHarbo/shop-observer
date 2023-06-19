@@ -4,4 +4,5 @@ export enum Collection {
 	SEARCH_QUERY_INSPECTIONS = 'search-query-inspections',
 	EMAILS = 'emails',
 	USERS = 'users',
+	SHOPS = 'shops',
 }

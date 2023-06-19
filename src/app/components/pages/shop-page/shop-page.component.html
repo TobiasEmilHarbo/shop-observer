@@ -1,0 +1,23 @@
+<section class="search">
+	<header>
+		<img [src]="shopLogo" />
+
+		<app-search-field
+			(doSearch)="doSearch($event)"
+			[placeholderText]="'Search the site of ' + shopName"
+		></app-search-field>
+
+		<app-pagination
+			*ngIf="searchResultPage$ | async as resultPage"
+			[currentPage]="resultPage.number"
+			[totalPages]="resultPage.totalPages"
+			(onPageSelect)="selectPage($event)"
+		></app-pagination>
+	</header>
+
+	<app-search-result-page
+		[page]="searchResultPage$ | async"
+		[isLoading]="(isLoading$ | async) || false"
+	>
+	</app-search-result-page>
+</section>
