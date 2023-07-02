@@ -7,6 +7,7 @@ import { Item } from '../models/Item.model';
 import { Page } from '../models/Page.model';
 import { SearchQuery } from '../models/SearchQuery.model';
 import { HttpClientService } from './http-client.service';
+import { existsGuard } from '../util';
 
 @Injectable({
 	providedIn: 'root',
@@ -44,7 +45,3 @@ export class ShopsService {
 		);
 	}
 }
-
-const existsGuard = <T>(object: T | null | undefined): object is T => {
-	return object !== null && object !== undefined;
-};

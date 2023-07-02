@@ -9,8 +9,8 @@
 
 		<app-pagination
 			*ngIf="searchResultPage$ | async as resultPage"
-			[currentPage]="resultPage.number"
 			[totalPages]="resultPage.totalPages"
+			[currentPage]="resultPage.number"
 			(onPageSelect)="selectPage($event)"
 		></app-pagination>
 	</header>
@@ -21,3 +21,19 @@
 	>
 	</app-search-result-page>
 </section>
+
+<button (click)="addSearchToObservation()" class="add-search-to-observations">
+	&#x2b;
+</button>
+<!--
+<app-overlay (onClick)="dismiss()">
+	<app-observed-queries
+		[observedSearches]="observedSearch$ | async"
+		(deleteSearch)="deleteSearch($event)"
+	></app-observed-queries>
+</app-overlay> -->
+
+<app-observed-queries
+	[observedSearches]="observedSearch$ | async"
+	(deleteSearch)="deleteSearch($event)"
+></app-observed-queries>

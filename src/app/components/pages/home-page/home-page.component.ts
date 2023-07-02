@@ -46,11 +46,11 @@ export class HomePageComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.observedSearches$ = this.authService.getUser().pipe(
+		this.observedSearches$ = this.authService.user$.pipe(
 			switchMap((user) => {
 				return this.database
-					.collection(Collection.SEARCH_QURIES, (reference) =>
-						reference.where('userId', '==', user?.uid)
+					.collection(Collection.SEARCH_QUERIES, (reference) =>
+						reference.where('userId', '==', user.uid)
 					)
 					.valueChanges() as Observable<Array<ObservedSearchQuery>>;
 			})
@@ -101,10 +101,10 @@ export class HomePageComponent implements OnInit {
 						throw new Error('Already saved');
 					}
 				}),
-				switchMap(() => this.authService.getUser().pipe(first()))
+				switchMap(() => this.authService.user$.pipe(first()))
 			)
 			.subscribe((user) => {
-				this.database.collection(Collection.SEARCH_QURIES).add({
+				this.database.collection(Collection.SEARCH_QUERIES).add({
 					userId: user?.uid,
 					shopId: this.webshopId,
 					query: this.currentSearch,
@@ -115,7 +115,7 @@ export class HomePageComponent implements OnInit {
 	public deleteSearch(searchId: string): void {
 		console.log('delete', searchId);
 		this.database
-			.collection(Collection.SEARCH_QURIES)
+			.collection(Collection.SEARCH_QUERIES)
 			.doc(searchId)
 			.delete()
 			.catch((error) => console.log(error));

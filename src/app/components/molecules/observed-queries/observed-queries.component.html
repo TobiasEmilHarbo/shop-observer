@@ -1,0 +1,6 @@
+<app-search-query
+	*ngFor="let search of observedSearches"
+	[search]="search"
+	(deleteSearch)="deleteSearch.emit($event)"
+>
+</app-search-query>

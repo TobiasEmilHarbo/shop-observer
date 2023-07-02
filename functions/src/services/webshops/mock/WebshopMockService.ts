@@ -27,8 +27,8 @@ export default class MockWebshopService implements WebshopService {
 			const page: Page<Item> = {
 				items: this.getMockItems(),
 				size: 1,
-				number: 1,
-				totalPages: 10,
+				number: pageNumber ?? 1,
+				totalPages: 20,
 			};
 			resolve(page);
 		});

@@ -23,6 +23,8 @@ import { SearchQueryComponent } from './components/atoms/search-query/search-que
 import { SearchResultPageComponent } from './components/molecules/search-result-page/search-result-page.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 import { ShopPageComponent } from './components/pages/shop-page/shop-page.component';
+import { OverlayComponent } from './components/atoms/overlay/overlay.component';
+import { ObservedQueriesComponent } from './components/molecules/observed-queries/observed-queries.component';
 
 @NgModule({
 	declarations: [
@@ -36,6 +38,8 @@ import { ShopPageComponent } from './components/pages/shop-page/shop-page.compon
 		SearchResultPageComponent,
 		PaginationComponent,
 		ShopPageComponent,
+  OverlayComponent,
+  ObservedQueriesComponent,
 	],
 	imports: [
 		BrowserModule,

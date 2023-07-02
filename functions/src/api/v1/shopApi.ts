@@ -11,7 +11,10 @@ router.get('/:shopId/', async ({ params, query }, response) => {
 	const searchQuery = query['search-query'] as string;
 	const pageNumber = query['page'] as string;
 	const shop = webshopFactory.getWebshopService(webShopId);
-	const page = await shop.search(searchQuery, parseInt(pageNumber));
+	const page = await shop.search(
+		searchQuery,
+		pageNumber ? parseInt(pageNumber) : 1
+	);
 
 	response.json(page);
 });

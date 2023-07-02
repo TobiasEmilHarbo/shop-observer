@@ -17,6 +17,8 @@ import { Page } from 'src/app/models/Page.model';
 import { SearchQuery } from 'src/app/models/SearchQuery.model';
 import { Shop } from 'src/app/models/Shop.model';
 import { ShopsService } from 'src/app/services/shops.service';
+import { ObservedSearchQuery } from '../../../../../functions/src/domain/ObservedSearchQuery';
+import { ShopObserverService } from '../../../services/shop-observer.service';
 
 @Component({
 	selector: 'app-shop-page',
@@ -29,19 +31,23 @@ export class ShopPageComponent implements OnInit {
 	public shopLogo!: String;
 	public searchResultPage$!: Observable<Page<Item> | null>;
 	public isLoading$!: Observable<boolean>;
+	public observedSearch$!: Observable<Array<ObservedSearchQuery>>;
 
 	private shop!: Shop;
 	private searchQuery$ = new ReplaySubject<SearchQuery>(1);
 
 	constructor(
 		private route: ActivatedRoute,
-		private shopService: ShopsService
+		private shopService: ShopsService,
+		private shopObserver: ShopObserverService
 	) {}
 
 	public ngOnInit(): void {
 		this.shop = this.route.snapshot.data['shop'];
 		this.shopName = this.shop.name;
 		this.shopLogo = this.shop.logoUrl;
+
+		this.observedSearch$ = this.shopObserver.getObservedSearchOfUser();
 
 		this.searchResultPage$ = this.searchQuery$.pipe(
 			debounceTime(200),
@@ -77,5 +83,21 @@ export class ShopPageComponent implements OnInit {
 				page: pageNumber,
 			});
 		});
+	}
+
+	public deleteSearch(id: string) {
+		console.log('DELETE', id);
+		this.shopObserver.removeObservedSearch(id);
+	}
+
+	public dismiss(): void {
+		console.log('CLICK');
+	}
+
+	public addSearchToObservation(): void {
+		this.shopObserver.addSearchToObservation(
+			this.searchQuery$.asObservable(),
+			this.shop.id
+		);
 	}
 }

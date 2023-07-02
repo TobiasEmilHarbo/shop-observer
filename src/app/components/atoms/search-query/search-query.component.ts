@@ -7,6 +7,6 @@ import { ObservedSearchQuery } from 'functions/src/domain/ObservedSearchQuery';
 	styleUrls: ['./search-query.component.scss'],
 })
 export class SearchQueryComponent {
-	@Input() search!: ObservedSearchQuery;
-	@Output() deleteSearch = new EventEmitter<string>();
+	@Input() public search!: ObservedSearchQuery;
+	@Output() public deleteSearch = new EventEmitter<string>();
 }

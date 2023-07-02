@@ -13,14 +13,14 @@ interface SearchQueryRequest {
 }
 
 export default functions.firestore
-	.document(`${Collection.SEARCH_QURIES}/{id}`)
+	.document(`${Collection.SEARCH_QUERIES}/{id}`)
 	.onCreate(async (snapshot) => {
-		const seachQueryRequest = snapshot.data() as SearchQueryRequest;
+		const searchQueryRequest = snapshot.data() as SearchQueryRequest;
 		const createTime = snapshot.createTime.toMillis();
 		const id = snapshot.id;
 
 		const searchQuery: SearchQuery = {
-			...seachQueryRequest,
+			...searchQueryRequest,
 			id,
 			createTime,
 		};

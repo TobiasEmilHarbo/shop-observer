@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { from, map, Observable, take } from 'rxjs';
+import { filter, from, map, Observable, take } from 'rxjs';
+import { existsGuard } from '../util';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
-	private user$!: Observable<firebase.default.User | null>;
+	private _user$!: Observable<firebase.default.User | null>;
 
 	constructor(
 		public angularFireAuth: AngularFireAuth,
 		private router: Router
 	) {
-		this.user$ = this.angularFireAuth.authState;
+		this._user$ = this.angularFireAuth.authState;
 	}
 
-	public getUser(): Observable<firebase.default.User | null> {
-		return this.user$;
+	public get user$(): Observable<firebase.default.User> {
+		return this._user$.pipe(filter(existsGuard));
 	}
 
 	public signUp(email: string, password: string) {
@@ -33,7 +34,7 @@ export class AuthService {
 	}
 
 	public isLoggedIn(): Observable<boolean> {
-		return this.user$.pipe(map((user) => !!user));
+		return this._user$.pipe(map((user) => !!user));
 	}
 
 	public async signOut(): Promise<void> {

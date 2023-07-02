@@ -16,7 +16,7 @@ export class AuthInterceptor implements HttpInterceptor {
 		request: HttpRequest<unknown>,
 		next: HttpHandler
 	): Observable<HttpEvent<unknown>> {
-		return this.authService.getUser().pipe(
+		return this.authService.user$.pipe(
 			switchMap((user) => {
 				if (!user) {
 					return of(null);

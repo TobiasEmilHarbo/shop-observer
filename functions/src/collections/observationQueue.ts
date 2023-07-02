@@ -26,7 +26,7 @@ export default functions.firestore
 		};
 
 		database
-			.collection(Collection.SEARCH_QURIES)
+			.collection(Collection.SEARCH_QUERIES)
 			.doc(searchQuery.id)
 			.set(updatedObservedSearch, { merge: true });
 

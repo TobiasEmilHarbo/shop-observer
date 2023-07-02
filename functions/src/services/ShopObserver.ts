@@ -33,7 +33,7 @@ export default class ShopObserver {
 		Array<DocumentReference<DocumentData>>
 	> {
 		const collection = await this.database
-			.collection(Collection.SEARCH_QURIES)
+			.collection(Collection.SEARCH_QUERIES)
 			.get();
 
 		const documentUpdates = collection.docs.map(async (document) => {
