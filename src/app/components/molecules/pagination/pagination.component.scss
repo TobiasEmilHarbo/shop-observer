@@ -1,4 +1,9 @@
 :host {
+	button {
+		width: 40px;
+		height: 40px;
+	}
+
 	button.current-page {
 		font-weight: bold;
 		text-decoration: underline;

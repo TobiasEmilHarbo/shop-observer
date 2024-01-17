@@ -1,36 +1,61 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { PaginationService } from '../../../services/pagination.service';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
 
 @Component({
 	selector: 'app-pagination',
 	templateUrl: './pagination.component.html',
 	styleUrls: ['./pagination.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {
-	private _currentPage!: number;
-
-	public firstPages: Array<number> = [];
-	public pagination: Array<number> = [];
-	public lastPages: Array<number> = [];
+	private _currentPage: number = 1;
+	private _totalPages: number = 1;
 
 	@Output() public onPageSelect = new EventEmitter<number>();
 
 	@Input() public set currentPage(currentPage: number) {
 		this._currentPage = currentPage;
-		this.calculatePagination(currentPage);
+		this.paginationService.setCurrentPage(
+			this._currentPage,
+			this._totalPages
+		);
 	}
 
-	@Input() public totalPages: number = 0;
+	@Input() public set totalPages(totalPages: number) {
+		this._totalPages = totalPages;
+		this.paginationService.setCurrentPage(
+			this.currentPage,
+			this._totalPages
+		);
+	}
+
+	public disablePrevButton: Observable<boolean>;
+	public disableNextButton: Observable<boolean>;
+	public startPages: Observable<Array<number>>;
+	public middlePages: Observable<Array<number>>;
+	public endPages: Observable<Array<number>>;
+	public pageBufferA: Observable<number>;
+	public pageBufferB: Observable<number>;
+
+	constructor(private paginationService: PaginationService) {
+		this.disablePrevButton = paginationService.disablePrevButton;
+		this.disableNextButton = paginationService.disableNextButton;
+		this.startPages = paginationService.headPageArray$;
+		this.middlePages = paginationService.middlePageArray$;
+		this.endPages = paginationService.tailPageArray$;
+		this.pageBufferA = paginationService.pageBufferA;
+		this.pageBufferB = paginationService.pageBufferB;
+	}
 
 	public get currentPage(): number {
 		return this._currentPage;
-	}
-
-	public get showPrevious(): boolean {
-		return 1 !== this.currentPage && this.totalPages > 1;
-	}
-
-	public get showNext(): boolean {
-		return this.totalPages !== this.currentPage && this.totalPages > 1;
 	}
 
 	public next(): void {
@@ -43,51 +68,5 @@ export class PaginationComponent {
 
 	public selectPage(pageNumber: number) {
 		this.onPageSelect.emit(pageNumber);
-	}
-
-	private calculatePagination(currentPage: number) {
-		this.pagination = [];
-		this.firstPages = [];
-		const leadingPages: Array<number> = [];
-		const trailingPages: Array<number> = [];
-
-		const numberMargin = 2;
-
-		if (this.totalPages > 9) {
-			const start = currentPage - numberMargin;
-			const end = currentPage + numberMargin;
-
-			for (let index = start; index <= end; index++) {
-				if (1 <= index && index <= this.totalPages) {
-					this.pagination.push(index);
-				}
-			}
-
-			if (this.pagination.length < 4) {
-				const head = this.pagination[0];
-				const tail = this.pagination[this.pagination.length - 1];
-				const newHead = head - 1;
-				const newTail = tail + 1;
-
-				if (newHead > 0) {
-					this.pagination.unshift(newHead);
-				}
-				if (newTail <= this.totalPages) {
-					this.pagination.push(newTail);
-				}
-			}
-
-			const head = this.pagination[0];
-			const tail = this.pagination[this.pagination.length - 1];
-
-			if (true) {
-			}
-
-			console.log(leadingPages, trailingPages);
-		} else {
-			for (let index = 1; index <= this.totalPages; index++) {
-				this.pagination.push(index);
-			}
-		}
 	}
 }
