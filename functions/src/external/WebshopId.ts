@@ -1,1 +1,4 @@
-export type WebshopId = 'KLARAVIK' | 'MOCK';
+export enum WebshopId {
+	KLARAVIK = '9d1tQD9mw4CEetutLv7c',
+	MOCK = 'MOCK',
+}

@@ -43,5 +43,6 @@ module.exports = {
 				},
 			},
 		],
+		'max-len': [2, { code: 80, ignorePattern: '^import .*' }],
     },
 };

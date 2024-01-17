@@ -4,29 +4,57 @@ import * as admin from 'firebase-admin';
 import { Collection } from '../domain/Collection';
 import Item from '../domain/Item';
 import { DocumentData, DocumentReference } from 'firebase-admin/firestore';
-import SearchQuery from '../domain/SearchQuery';
+import { PartialObservedSearchQuery } from '../domain/PartialObservedSearchQuery';
+import { Observable, map, from } from 'rxjs';
+import { ObservedSearchQueryItemUpdate } from '../domain/ObservedSearchQueryItemUpdate';
 
 export default class ShopObserver {
 	constructor(
-		private webshopServiceFactory = new WebshopServiceFactory(),
-		private database = admin.firestore()
+		private database = admin.firestore(),
+		private webshopServiceFactory = new WebshopServiceFactory()
 	) {}
 
-	public async createObservedSearchQuery(
-		searchQuery: SearchQuery
-	): Promise<ObservedSearchQuery> {
+	public createObservedSearchQuery(
+		searchQuery: PartialObservedSearchQuery
+	): Observable<ObservedSearchQuery> {
 		const shopService = this.webshopServiceFactory.getWebshopService(
 			searchQuery.shopId
 		);
 
-		const items = await shopService.getItemsFromAllPages(searchQuery.query);
-		const itemIds = items.map((item: Item) => item.id);
+		const itemId$ = from(
+			shopService.getItemsFromAllPages(searchQuery.query)
+		).pipe(map((items: Array<Item>) => items.map((item: Item) => item.id)));
 
-		return {
-			...searchQuery,
-			itemIds,
-			updateTime: searchQuery.createTime,
+		return itemId$.pipe(
+			map((itemIds) => {
+				const updateTime = searchQuery.createTime;
+				return {
+					...searchQuery,
+					itemIds,
+					updateTime,
+				};
+			})
+		);
+	}
+
+	public async updateQueryItems(
+		searchQuery: PartialObservedSearchQuery
+	): Promise<Array<Item>> {
+		const { newItems, allItems } = await this.detectNewShopItems(
+			searchQuery
+		);
+
+		const updatedObservedSearch: ObservedSearchQueryItemUpdate = {
+			itemIds: allItems.map((item) => item.id),
+			updateTime: Date.now(),
 		};
+
+		this.database
+			.collection(Collection.SEARCH_QUERIES)
+			.doc(searchQuery.id)
+			.set(updatedObservedSearch, { merge: true });
+
+		return newItems;
 	}
 
 	public async queueSearchQueriesForInspection(): Promise<
@@ -48,10 +76,10 @@ export default class ShopObserver {
 	}
 
 	public async detectNewShopItems({
-		shopId,
 		query,
+		shopId,
 		itemIds,
-	}: ObservedSearchQuery): Promise<{
+	}: PartialObservedSearchQuery): Promise<{
 		newItems: Array<Item>;
 		allItems: Array<Item>;
 	}> {

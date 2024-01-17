@@ -3,7 +3,7 @@ import Item from '../../../domain/Item';
 import Page from '../../../domain/Page';
 import Price from '../../../domain/Price';
 
-export default class KlaravikMapper {
+export default class KlaravikObjectMapper {
 	constructor(private host: string) {}
 
 	public toItemListPage(dom: Cheerio<Element>): Page<Item> {

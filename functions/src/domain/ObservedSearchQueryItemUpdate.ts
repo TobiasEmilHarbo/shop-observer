@@ -1,5 +1,4 @@
-/* eslint-disable semi */
-export default interface ObservedSearchQueryItemUpdate {
+export interface ObservedSearchQueryItemUpdate {
 	itemIds: Array<string>;
 	updateTime: number;
 }

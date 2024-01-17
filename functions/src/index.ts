@@ -4,11 +4,11 @@ import * as express from 'express';
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 
+admin.initializeApp();
+
 import shopApi from './api/v1/shopApi';
 import auth from './middleware/auth.middleware';
 import ShopObserver from './services/ShopObserver';
-
-admin.initializeApp();
 
 export * as searchQueries from './collections/searchQuery';
 export * as observationQueue from './collections/observationQueue';

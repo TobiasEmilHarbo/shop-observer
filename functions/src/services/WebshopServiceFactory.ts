@@ -1,7 +1,7 @@
 import { WebshopId } from '../external/WebshopId';
 import KlaravikService from './webshops/klaravik/KlaravikService';
 import MockWebshopService from './webshops/mock/WebshopMockService';
-import WebshopService from './webshops/WebshopService';
+import { WebshopService } from './webshops/WebshopService';
 
 export default class WebshopServiceFactory {
 	constructor(
@@ -11,7 +11,7 @@ export default class WebshopServiceFactory {
 
 	public getWebshopService(webshopId: WebshopId): WebshopService {
 		switch (webshopId) {
-			case 'KLARAVIK':
+			case '9d1tQD9mw4CEetutLv7c':
 				return this.klaravikService;
 			case 'MOCK':
 				return this.mockWebshopService;
