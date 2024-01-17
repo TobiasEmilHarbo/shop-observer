@@ -3,6 +3,7 @@
 	display: grid;
 	padding: 16px;
 	grid-template-columns: 1fr;
+	column-gap: 16px;
 
 	@media only screen and (min-width: 64em) {
 		grid-template-columns: 1fr 19em;

@@ -5,7 +5,7 @@ import {
 	Output,
 	Input,
 } from '@angular/core';
-import { ObservedSearchQuery } from '../../../../../functions/src/domain/ObservedSearchQuery';
+import { ObservedSearchQuery } from '../../../models/ObservedSearchQuery.model';
 
 @Component({
 	selector: 'app-observed-queries',

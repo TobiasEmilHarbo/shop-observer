@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import Item from 'functions/src/domain/Item';
-import Page from 'functions/src/domain/Page';
+import { Item } from '../../../models/Item.model';
+import { Page } from '../../../models/Page.model';
 
 @Component({
 	selector: 'app-search-result-page',

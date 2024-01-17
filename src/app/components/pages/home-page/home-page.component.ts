@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import Item from 'functions/src/domain/Item';
-import Page from 'functions/src/domain/Page';
-import SearchQuery from 'functions/src/domain/SearchQuery';
 import {
 	first,
 	Observable,
@@ -14,9 +11,11 @@ import {
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpClientService } from 'src/app/services/http-client.service';
-import { ObservedSearchQuery } from 'functions/src/domain/ObservedSearchQuery';
 import { Collection } from 'functions/src/domain/Collection';
 import { WebshopId } from 'functions/src/external/WebshopId';
+import { Page } from '../../../models/Page.model';
+import { Item } from '../../../models/Item.model';
+import { ObservedSearchQuery } from '../../../models/ObservedSearchQuery.model';
 
 @Component({
 	selector: 'app-home-page',
@@ -30,7 +29,7 @@ export class HomePageComponent implements OnInit {
 
 	public searchResultPage$!: Observable<Page<Item> | null>;
 
-	private webshopId: WebshopId = 'MOCK';
+	private webshopId: WebshopId = WebshopId.MOCK;
 
 	public showObservationsPanel = false;
 
@@ -108,7 +107,7 @@ export class HomePageComponent implements OnInit {
 					userId: user?.uid,
 					shopId: this.webshopId,
 					query: this.currentSearch,
-				} as SearchQuery);
+				});
 			});
 	}
 
