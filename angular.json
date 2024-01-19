@@ -63,19 +63,19 @@
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
-						"production": {
-							"browserTarget": "shop-observer:build:production"
+            "production": {
+              "buildTarget": "shop-observer:build:production"
 						},
-						"development": {
-							"browserTarget": "shop-observer:build:development"
+            "development": {
+              "buildTarget": "shop-observer:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "shop-observer:build"
+          "options": {
+            "buildTarget": "shop-observer:build"
 					}
 				},
 				"test": {
