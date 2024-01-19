@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Shop } from '../models/Shop.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Collection } from 'functions/src/domain/Collection';
-import { Observable, filter, map, of, switchMap, tap, throwError } from 'rxjs';
+import { Observable, filter, map, tap } from 'rxjs';
 import { Item } from '../models/Item.model';
 import { Page } from '../models/Page.model';
 import { SearchQuery } from '../models/SearchQuery.model';
