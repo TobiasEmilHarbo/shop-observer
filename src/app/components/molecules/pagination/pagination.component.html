@@ -1,45 +1,26 @@
-<button (click)="previous()" [disabled]="disablePrevButton | async">
-	&#10232;
-</button>
-
 <button
-	*ngFor="let pageNumber of startPages | async"
-	(click)="selectPage(pageNumber)"
-	[ngClass]="{ 'current-page': this.currentPage === pageNumber }"
+	(click)="previous()"
+	class="previous"
+	[disabled]="disablePrevButton | async"
 >
-	{{ pageNumber }}
+	<span>&#10142;</span>
 </button>
 
-<button
-	*ngIf="pageBufferA | async as pageNumber"
-	(click)="selectPage(pageNumber)"
+<span
+	*ngFor="let paginationItem of paginationItemArray$ | async"
+	[ngClass]="paginationItem?.type"
 >
-	&#10500;
-</button>
+	<button
+		(click)="selectPage(paginationItem.pageNumber)"
+		*ngIf="paginationItem !== null"
+		[ngClass]="{
+			'current-page': this.currentPage === paginationItem.pageNumber
+		}"
+	>
+		<span>{{ paginationItem.symbol }}</span>
+	</button>
+</span>
 
-<button
-	*ngFor="let pageNumber of middlePages | async"
-	(click)="selectPage(pageNumber)"
-	[ngClass]="{ 'current-page': this.currentPage === pageNumber }"
->
-	{{ pageNumber }}
-</button>
-
-<button
-	*ngIf="pageBufferB | async as pageNumber"
-	(click)="selectPage(pageNumber)"
->
-	&#10500;
-</button>
-
-<button
-	*ngFor="let pageNumber of endPages | async"
-	(click)="selectPage(pageNumber)"
-	[ngClass]="{ 'current-page': this.currentPage === pageNumber }"
->
-	{{ pageNumber }}
-</button>
-
-<button (click)="next()" [disabled]="disableNextButton | async">
-	&#10233;
+<button (click)="next()" class="next" [disabled]="disableNextButton | async">
+	<span>&#10142;</span>
 </button>

@@ -5,7 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
-import { BaseUrlInterceptor } from './intercepters/base-url.interceptor';
+import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { SearchFieldComponent } from './components/atoms/search-field/search-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShopItemComponent } from './components/atoms/shop-item/shop-item.component';
@@ -18,7 +18,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
 import { LogInComponent } from './components/pages/log-in/log-in.component';
-import { AuthInterceptor } from './intercepters/auth.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SearchQueryComponent } from './components/atoms/search-query/search-query.component';
 import { SearchResultPageComponent } from './components/molecules/search-result-page/search-result-page.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
@@ -38,8 +38,8 @@ import { ObservedQueriesComponent } from './components/molecules/observed-querie
 		SearchResultPageComponent,
 		PaginationComponent,
 		ShopPageComponent,
-  OverlayComponent,
-  ObservedQueriesComponent,
+		OverlayComponent,
+		ObservedQueriesComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -1,11 +1,44 @@
 :host {
 	button {
-		width: 40px;
-		height: 40px;
+
+		background: #fafafa;
+		border: solid #eaeaea 1px;
+		border-radius: 100%;
+		font-weight: bold;
+		width: 44px;
+		height: 44px;
+		margin: 4px;
+		cursor: pointer;
+
+		&:disabled {
+			opacity: 50%;
+			cursor: default;
+		}
+
+		&.current-page {
+			background-color: #fd8469;
+			border: 1px solid #fc836a;
+			span {
+				color: #f6f6f6;
+			}
+		}
+
+		&.previous span{
+			display: inline-block;
+			transform: rotate(180deg);
+		}
+
+		&.next,&.previous {
+			display: inline-block;
+			font-size: 18px;
+			vertical-align: middle;
+		}
+
 	}
 
-	button.current-page {
+	span.accordion span {
+		font-size: 20px;
 		font-weight: bold;
-		text-decoration: underline;
+		vertical-align: middle;
 	}
 }

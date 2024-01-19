@@ -12,6 +12,10 @@
 </div>
 
 <div class="actions">
-	<button>&#8981;</button>
-	<button (click)="deleteSearch.emit(search.id)">&#9932;</button>
+	<button class="search">
+		<span>&#9906;</span>
+	</button>
+	<button class="delete-search" (click)="deleteSearch.emit(search.id)">
+		&#10005;
+	</button>
 </div>

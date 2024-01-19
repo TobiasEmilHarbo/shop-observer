@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PaginationService } from '../../../services/pagination.service';
 import {
 	ChangeDetectionStrategy,
@@ -7,6 +7,7 @@ import {
 	Input,
 	Output,
 } from '@angular/core';
+import { PaginationItem } from '../../../models/PaginationItem.model';
 
 @Component({
 	selector: 'app-pagination',
@@ -22,36 +23,23 @@ export class PaginationComponent {
 
 	@Input() public set currentPage(currentPage: number) {
 		this._currentPage = currentPage;
-		this.paginationService.setCurrentPage(
-			this._currentPage,
-			this._totalPages
-		);
+		this.paginationService.setCurrentPage(this._currentPage);
 	}
 
 	@Input() public set totalPages(totalPages: number) {
 		this._totalPages = totalPages;
-		this.paginationService.setCurrentPage(
-			this.currentPage,
-			this._totalPages
-		);
+		this.paginationService.setTotalPageCount(this._totalPages);
 	}
+
+	public paginationItemArray$: Observable<Array<PaginationItem | null>>;
 
 	public disablePrevButton: Observable<boolean>;
 	public disableNextButton: Observable<boolean>;
-	public startPages: Observable<Array<number>>;
-	public middlePages: Observable<Array<number>>;
-	public endPages: Observable<Array<number>>;
-	public pageBufferA: Observable<number>;
-	public pageBufferB: Observable<number>;
 
 	constructor(private paginationService: PaginationService) {
 		this.disablePrevButton = paginationService.disablePrevButton;
 		this.disableNextButton = paginationService.disableNextButton;
-		this.startPages = paginationService.headPageArray$;
-		this.middlePages = paginationService.middlePageArray$;
-		this.endPages = paginationService.tailPageArray$;
-		this.pageBufferA = paginationService.pageBufferA;
-		this.pageBufferB = paginationService.pageBufferB;
+		this.paginationItemArray$ = paginationService.getPaginationDisplay$();
 	}
 
 	public get currentPage(): number {
