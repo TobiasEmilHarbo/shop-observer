@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ObservedSearchQuery } from '../../../models/ObservedSearchQuery.model';
+import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 
 @Component({
 	selector: 'app-search-query',

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { EMPTY, Observable, catchError } from 'rxjs';
 import { Param, Route } from '../app-routing.module';
-import { ShopsService } from '../services/shops.service';
-import { Shop } from '../models/Shop.model';
+import { ShopsService } from '@services/shops.service';
+import { Shop } from '@models/Shop.model';
 
 @Injectable({
 	providedIn: 'root',

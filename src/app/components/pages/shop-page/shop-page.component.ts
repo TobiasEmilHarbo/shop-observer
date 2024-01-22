@@ -12,13 +12,13 @@ import {
 	switchMap,
 	take,
 } from 'rxjs';
-import { Item } from 'src/app/models/Item.model';
-import { Page } from 'src/app/models/Page.model';
-import { SearchQuery } from 'src/app/models/SearchQuery.model';
-import { Shop } from 'src/app/models/Shop.model';
-import { ShopsService } from 'src/app/services/shops.service';
-import { ShopObserverService } from '../../../services/shop-observer.service';
-import { ObservedSearchQuery } from '../../../models/ObservedSearchQuery.model';
+import { Item } from '@models/Item.model';
+import { Page } from '@models/Page.model';
+import { SearchQuery } from '@models/SearchQuery.model';
+import { Shop } from '@models/Shop.model';
+import { ShopsService } from '@services/shops.service';
+import { ShopObserverService } from '@services/shop-observer.service';
+import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 
 @Component({
 	selector: 'app-shop-page',

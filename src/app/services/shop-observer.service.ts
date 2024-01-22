@@ -4,7 +4,7 @@ import { ObservedSearchQuery } from '../../../functions/src/domain/ObservedSearc
 import { AuthService } from './auth.service';
 import { Collection } from '../../../functions/src/domain/Collection';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { SearchQuery } from 'src/app/models/SearchQuery.model';
+import { SearchQuery } from '@models/SearchQuery.model';
 
 @Injectable({
 	providedIn: 'root',

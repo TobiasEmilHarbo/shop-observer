@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { PaginationService } from '../../../services/pagination.service';
+import { PaginationService } from '@services/pagination.service';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -7,7 +7,7 @@ import {
 	Input,
 	Output,
 } from '@angular/core';
-import { PaginationItem } from '../../../models/PaginationItem.model';
+import { PaginationItem } from '@models/PaginationItem.model';
 
 @Component({
 	selector: 'app-pagination',

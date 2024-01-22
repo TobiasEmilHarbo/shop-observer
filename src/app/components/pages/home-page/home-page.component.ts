@@ -9,13 +9,13 @@ import {
 	tap,
 } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AuthService } from 'src/app/services/auth.service';
-import { HttpClientService } from 'src/app/services/http-client.service';
 import { Collection } from 'functions/src/domain/Collection';
 import { WebshopId } from 'functions/src/external/WebshopId';
-import { Page } from '../../../models/Page.model';
-import { Item } from '../../../models/Item.model';
-import { ObservedSearchQuery } from '../../../models/ObservedSearchQuery.model';
+import { Page } from '@models/Page.model';
+import { Item } from '@models/Item.model';
+import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
+import { AuthService } from '@services/auth.service';
+import { HttpClientService } from '@services/http-client.service';
 
 @Component({
 	selector: 'app-home-page',

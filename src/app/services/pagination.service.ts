@@ -12,7 +12,7 @@ import {
 	switchMap,
 	toArray,
 } from 'rxjs';
-import { PaginationItem } from '../models/PaginationItem.model';
+import { PaginationItem } from '@models/PaginationItem.model';
 
 const width = 5;
 
