@@ -1,13 +1,13 @@
 <header>
-	<img [src]="search.shopLogoUrl" />
-	<h4>{{ search.query }}</h4>
+	<img [src]="search?.shopLogoUrl" />
+	<h4>{{ search?.query }}</h4>
 </header>
 
 <div class="stats">
 	<ul>
-		<li>{{ search.shopId }}</li>
-		<li>{{ search.itemIds?.length }}</li>
-		<li>{{ search.updateTime }}</li>
+		<li>{{ search?.shopId }}</li>
+		<li>{{ search?.itemIds?.length }}</li>
+		<li>{{ search?.updateTime }}</li>
 	</ul>
 </div>
 
@@ -15,7 +15,7 @@
 	<button class="search">
 		<span>&#9906;</span>
 	</button>
-	<button class="delete-search" (click)="deleteSearch.emit(search.id)">
+	<button class="delete-search" (click)="deleteSearch.emit(search?.id)">
 		&#10005;
 	</button>
 </div>

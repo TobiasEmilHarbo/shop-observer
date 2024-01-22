@@ -44,8 +44,8 @@ export class ShopPageComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.shop = this.route.snapshot.data['shop'];
-		this.shopName = this.shop.name;
-		this.shopLogo = this.shop.logoUrl;
+		this.shopName = this.shop?.name;
+		this.shopLogo = this.shop?.logoUrl;
 
 		this.observedSearch$ = this.shopObserver.getObservedSearchOfUser();
 

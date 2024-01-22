@@ -3,13 +3,12 @@ import { Injectable } from '@angular/core';
 import Item from 'functions/src/domain/Item';
 import Page from 'functions/src/domain/Page';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class HttpClientService {
-	constructor(private http: HttpClient, private authService: AuthService) {}
+	constructor(private http: HttpClient) {}
 
 	public searchShop(
 		shop: string,
