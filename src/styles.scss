@@ -8,7 +8,6 @@
 	box-sizing: border-box;
 	font-family: 'Nunito';
 	color: #646464;
-	min-width: 0;
 }
 
 html {
@@ -25,11 +24,13 @@ button {
 	cursor: pointer;
 	background: #fafafa;
 	border: solid #eaeaea 1px;
-	height: 44px;
-	width: 44px;
+	min-height: 44px;
+	min-width: 44px;
 	display: grid;
 	align-content: center;
 	justify-content: center;
+	font-size: 14px;
+	line-height: 14px;
 
 	&:disabled {
 		opacity: .5;
@@ -44,9 +45,11 @@ span {
 	}
 
 	&.icon-arrow-left, &.icon-arrow-right {
+		font-size: 1.5em;
+		line-height: unset;
+
 		&::after {
 			content: "➞";
-			font-size: 1.5em;
 			font-weight: bold;
 		}
 	}
@@ -58,9 +61,11 @@ span {
 	}
 
 	&.icon-ellipsis {
+		font-size: 1.5em;
+		line-height: unset;
+
 		&::after {
 			content: "⋯";
-			font-size: 1.5em;
 			font-weight: bold;
 		}
 	}

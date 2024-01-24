@@ -26,10 +26,37 @@
 				grid-row: 1;
 			}
 
-			app-pagination-display {
+			app-pagination {
 				justify-self: center;
 				grid-column: 1 / 3;
-				grid-row: 2;
+				// grid-row: 2;
+
+				display: none;
+
+				&.mini {
+					display: grid;
+				}
+
+				@media only screen and (min-width: 30em) {
+					&.small {
+						display: grid;
+					}
+
+					&.mini {
+						display: none;
+					}
+				}
+
+				@media only screen and (min-width: 50em) {
+					&.medium {
+						display: grid;
+					}
+
+					&.small {
+						display: none;
+					}
+				}
+
 			}
 
 			@media only screen and (min-width: 64em) {

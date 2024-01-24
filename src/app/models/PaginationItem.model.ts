@@ -2,6 +2,6 @@ import { PaginationItemType } from './PaginationItemType.model';
 
 export interface PaginationItem {
 	pageNumber: number;
-	current: boolean;
+	current?: boolean;
 	type: PaginationItemType;
 }

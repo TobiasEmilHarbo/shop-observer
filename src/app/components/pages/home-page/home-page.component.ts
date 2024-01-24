@@ -19,6 +19,7 @@ import { AuthService } from '@services/auth.service';
 import { HttpClientService } from '@services/http-client.service';
 import { PaginationService } from '@services/pagination.service';
 import { Pagination } from '../../../models/Pagination.model';
+import { PaginationSize } from '../../../models/PaginationSize.model';
 
 @Component({
 	selector: 'app-home-page',
@@ -36,7 +37,9 @@ export class HomePageComponent implements OnInit {
 
 	public showObservationsPanel = false;
 
-	public paginationDisplay$: Observable<Pagination> = NEVER;
+	public paginationMedium$: Observable<Pagination> = NEVER;
+	public paginationSmall$: Observable<Pagination> = NEVER;
+	public paginationMini$: Observable<Pagination> = NEVER;
 
 	private searchQuery$ = new ReplaySubject<{
 		searchString: string;
@@ -51,7 +54,17 @@ export class HomePageComponent implements OnInit {
 	) {}
 
 	public ngOnInit(): void {
-		this.paginationDisplay$ = this.paginationService.getPagination$();
+		this.paginationMedium$ = this.paginationService.getPagination$(
+			PaginationSize.MEDIUM
+		);
+
+		this.paginationSmall$ = this.paginationService.getPagination$(
+			PaginationSize.SMALL
+		);
+
+		this.paginationMini$ = this.paginationService.getPagination$(
+			PaginationSize.MINI
+		);
 
 		this.observedSearches$ = this.authService.user$.pipe(
 			switchMap((user) => {
@@ -76,7 +89,7 @@ export class HomePageComponent implements OnInit {
 			}),
 			tap((searchResultPage) => {
 				this.paginationService.updatePagination(
-					10,
+					searchResultPage?.totalPages,
 					searchResultPage?.number
 				);
 			})

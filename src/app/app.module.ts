@@ -25,7 +25,7 @@ import { ShopPageComponent } from './components/pages/shop-page/shop-page.compon
 import { OverlayComponent } from './components/atoms/overlay/overlay.component';
 import { ObservedQueriesComponent } from './components/molecules/observed-queries/observed-queries.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
-import { PaginationItemComponent } from './components/molecules/pagination-item/pagination-item.component';
+import { PaginationItemComponent } from './components/atoms/pagination-item/pagination-item.component';
 
 @NgModule({
 	declarations: [

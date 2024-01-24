@@ -5,6 +5,7 @@ import { TestScheduler } from 'rxjs/testing';
 import { Pagination } from '../models/Pagination.model';
 import { PaginationItemType } from '../models/PaginationItemType.model';
 import { PaginationItem } from '../models/PaginationItem.model';
+import { PaginationSize } from '../models/PaginationSize.model';
 
 describe('PaginationService', () => {
 	let service: PaginationService;
@@ -25,7 +26,9 @@ describe('PaginationService', () => {
 	describe('getPagination$', () => {
 		it('should never return values if pagination is not updated is not updated', () => {
 			testScheduler.run((helper) => {
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				helper.expectObservable(pagination).toBe('-');
 			});
@@ -34,7 +37,9 @@ describe('PaginationService', () => {
 		it('should disable previous and next button if total page count is 1', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(1);
@@ -54,7 +59,9 @@ describe('PaginationService', () => {
 		it('should enable next button if total page count is 2 and current page is 1', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(2, 1);
@@ -74,7 +81,9 @@ describe('PaginationService', () => {
 		it('should enable previous next button if current page is not the first or last page', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(3, 2);
@@ -94,7 +103,9 @@ describe('PaginationService', () => {
 		it('should return pagination with 9 page items if total page count is 9', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(9);
@@ -115,7 +126,9 @@ describe('PaginationService', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
 				const currentPage = 1;
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(10, currentPage);
@@ -127,7 +140,7 @@ describe('PaginationService', () => {
 					paginationItems: [
 						...generatePaginationPageItems(4, currentPage, 1),
 						{
-							pageNumber: 6,
+							pageNumber: 5,
 							current: false,
 							type: PaginationItemType.ACCORDION,
 						},
@@ -144,7 +157,9 @@ describe('PaginationService', () => {
 			testScheduler.run(({ expectObservable }) => {
 				// arrange
 				const currentPage = 5;
-				const pagination = service.getPagination$();
+				const pagination = service.getPagination$(
+					PaginationSize.MEDIUM
+				);
 
 				// act
 				service.updatePagination(10, currentPage);
@@ -162,11 +177,11 @@ describe('PaginationService', () => {
 						{
 							pageNumber: 2,
 							current: false,
-							type: PaginationItemType.ACCORDION,
+							type: PaginationItemType.PAGE,
 						},
 						...generatePaginationPageItems(5, currentPage, 3),
 						{
-							pageNumber: 9,
+							pageNumber: 8,
 							current: false,
 							type: PaginationItemType.ACCORDION,
 						},
