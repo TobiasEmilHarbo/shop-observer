@@ -21,10 +21,11 @@ import { LogInComponent } from './components/pages/log-in/log-in.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SearchQueryComponent } from './components/atoms/search-query/search-query.component';
 import { SearchResultPageComponent } from './components/molecules/search-result-page/search-result-page.component';
-import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 import { ShopPageComponent } from './components/pages/shop-page/shop-page.component';
 import { OverlayComponent } from './components/atoms/overlay/overlay.component';
 import { ObservedQueriesComponent } from './components/molecules/observed-queries/observed-queries.component';
+import { PaginationComponent } from './components/molecules/pagination/pagination.component';
+import { PaginationItemComponent } from './components/molecules/pagination-item/pagination-item.component';
 
 @NgModule({
 	declarations: [
@@ -36,10 +37,11 @@ import { ObservedQueriesComponent } from './components/molecules/observed-querie
 		LogInComponent,
 		SearchQueryComponent,
 		SearchResultPageComponent,
-		PaginationComponent,
 		ShopPageComponent,
 		OverlayComponent,
 		ObservedQueriesComponent,
+		PaginationComponent,
+		PaginationItemComponent,
 	],
 	imports: [
 		BrowserModule,

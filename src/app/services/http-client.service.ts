@@ -13,7 +13,7 @@ export class HttpClientService {
 	public searchShop(
 		shop: string,
 		query: string,
-		page?: number
+		page: number = 1
 	): Observable<Page<Item>> {
 		let params = new HttpParams();
 		params = params.set('search-query', query);

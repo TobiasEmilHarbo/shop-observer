@@ -1,5 +1,7 @@
+import { PaginationItemType } from './PaginationItemType.model';
+
 export interface PaginationItem {
 	pageNumber: number;
-	symbol?: string | number;
-	type: 'accordion' | 'page';
+	current: boolean;
+	type: PaginationItemType;
 }

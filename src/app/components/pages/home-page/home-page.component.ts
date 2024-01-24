@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
 	first,
+	NEVER,
 	Observable,
 	of,
 	ReplaySubject,
@@ -16,6 +17,8 @@ import { Item } from '@models/Item.model';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 import { AuthService } from '@services/auth.service';
 import { HttpClientService } from '@services/http-client.service';
+import { PaginationService } from '@services/pagination.service';
+import { Pagination } from '../../../models/Pagination.model';
 
 @Component({
 	selector: 'app-home-page',
@@ -33,6 +36,8 @@ export class HomePageComponent implements OnInit {
 
 	public showObservationsPanel = false;
 
+	public paginationDisplay$: Observable<Pagination> = NEVER;
+
 	private searchQuery$ = new ReplaySubject<{
 		searchString: string;
 		page?: number;
@@ -41,10 +46,13 @@ export class HomePageComponent implements OnInit {
 	constructor(
 		private http: HttpClientService,
 		private authService: AuthService,
-		private database: AngularFirestore
+		private database: AngularFirestore,
+		private paginationService: PaginationService
 	) {}
 
 	public ngOnInit(): void {
+		this.paginationDisplay$ = this.paginationService.getPagination$();
+
 		this.observedSearches$ = this.authService.user$.pipe(
 			switchMap((user) => {
 				return this.database
@@ -63,7 +71,13 @@ export class HomePageComponent implements OnInit {
 				return this.http.searchShop(
 					this.webshopId,
 					searchQuery.searchString,
-					searchQuery.page ?? 1
+					searchQuery.page
+				);
+			}),
+			tap((searchResultPage) => {
+				this.paginationService.updatePagination(
+					10,
+					searchResultPage?.number
 				);
 			})
 		);

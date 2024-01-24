@@ -8,6 +8,7 @@
 	box-sizing: border-box;
 	font-family: 'Nunito';
 	color: #646464;
+	min-width: 0;
 }
 
 html {
@@ -16,4 +17,51 @@ html {
 
 body {
 	margin: 0;
+}
+
+button {
+	border: 0;
+	border-radius: 100%;
+	cursor: pointer;
+	background: #fafafa;
+	border: solid #eaeaea 1px;
+	height: 44px;
+	width: 44px;
+	display: grid;
+	align-content: center;
+	justify-content: center;
+
+	&:disabled {
+		opacity: .5;
+	}
+}
+
+span {
+	&[class^="icon-"] {
+		&::after {
+			display: inline-block;
+		}
+	}
+
+	&.icon-arrow-left, &.icon-arrow-right {
+		&::after {
+			content: "➞";
+			font-size: 1.5em;
+			font-weight: bold;
+		}
+	}
+
+	&.icon-arrow-left {
+		&::after {
+			transform: rotate(180deg);
+		}
+	}
+
+	&.icon-ellipsis {
+		&::after {
+			content: "⋯";
+			font-size: 1.5em;
+			font-weight: bold;
+		}
+	}
 }

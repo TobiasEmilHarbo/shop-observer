@@ -1,26 +1,23 @@
-<button
-	(click)="previous()"
-	class="previous"
-	[disabled]="disablePrevButton | async"
->
-	<span>&#10142;</span>
-</button>
-
-<span
-	*ngFor="let paginationItem of paginationItemArray$ | async"
-	[ngClass]="paginationItem?.type"
->
+<ng-container *ngIf="pagination">
 	<button
-		(click)="selectPage(paginationItem.pageNumber)"
-		*ngIf="paginationItem !== null"
-		[ngClass]="{
-			'current-page': this.currentPage === paginationItem.pageNumber
-		}"
+		(click)="previousPage()"
+		class="previousPage"
+		[disabled]="pagination.isPreviousButtonDisabled"
 	>
-		<span>{{ paginationItem.symbol }}</span>
+		<span class="icon-arrow-left"></span>
 	</button>
-</span>
 
-<button (click)="next()" class="next" [disabled]="disableNextButton | async">
-	<span>&#10142;</span>
-</button>
+	<app-pagination-item
+		*ngFor="let paginationItem of pagination.paginationItems"
+		[paginationItem]="paginationItem"
+		(onPageSelect)="selectPage($event)"
+	></app-pagination-item>
+
+	<button
+		(click)="nextPage()"
+		class="nextPage"
+		[disabled]="pagination.isNextButtonDisabled"
+	>
+		<span class="icon-arrow-right"></span>
+	</button>
+</ng-container>

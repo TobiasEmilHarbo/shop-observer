@@ -1,0 +1,14 @@
+<ng-container *ngIf="paginationItem" [ngSwitch]="paginationItem.type">
+	<button
+		(click)="selectPage(paginationItem.pageNumber)"
+		[ngClass]="{ 'current-page': paginationItem.current }"
+	>
+		<span
+			*ngSwitchCase="PaginationItemType.ACCORDION"
+			class="icon-ellipsis"
+		></span>
+		<span *ngSwitchCase="PaginationItemType.PAGE">{{
+			paginationItem.pageNumber
+		}}</span>
+	</button>
+</ng-container>

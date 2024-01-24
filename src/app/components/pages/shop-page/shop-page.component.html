@@ -7,12 +7,13 @@
 			[placeholderText]="'Search the site of ' + shopName"
 		></app-search-field>
 
-		<app-pagination
+		<!-- <app-pagination-display
 			*ngIf="searchResultPage$ | async as resultPage"
-			[totalPages]="resultPage.totalPages"
-			[currentPage]="resultPage.number"
-			(onPageSelect)="selectPage($event)"
-		></app-pagination>
+			[pagination]="paginationDisplay$ | async"
+			[currentPageNumber]="resultPage.number"
+			(onPageSelect)="pageSelect($event)"
+		>
+		</app-pagination-display> -->
 	</header>
 
 	<app-search-result-page

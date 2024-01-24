@@ -19,12 +19,13 @@
 			[placeholderText]="'Search'"
 		></app-search-field>
 
-		<app-pagination
+		<app-pagination-display
 			*ngIf="searchResultPage$ | async as resultPage"
-			[currentPage]="resultPage.number"
-			[totalPages]="resultPage.totalPages"
+			[pagination]="paginationDisplay$ | async"
+			[currentPageNumber]="resultPage.number"
 			(onPageSelect)="pageSelect($event)"
-		></app-pagination>
+		>
+		</app-pagination-display>
 	</header>
 
 	<app-search-result-page
