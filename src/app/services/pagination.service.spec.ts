@@ -140,7 +140,7 @@ describe('PaginationService', () => {
 					paginationItems: [
 						...generatePaginationPageItems(4, currentPage, 1),
 						{
-							pageNumber: 5,
+							pageNumber: 6,
 							current: false,
 							type: PaginationItemType.ACCORDION,
 						},
@@ -181,7 +181,7 @@ describe('PaginationService', () => {
 						},
 						...generatePaginationPageItems(5, currentPage, 3),
 						{
-							pageNumber: 8,
+							pageNumber: 9,
 							current: false,
 							type: PaginationItemType.ACCORDION,
 						},

@@ -8,7 +8,10 @@ import {
 	map,
 	of,
 	range,
+	share,
+	shareReplay,
 	switchMap,
+	tap,
 	toArray,
 } from 'rxjs';
 import { PaginationItem } from '@models/PaginationItem.model';
@@ -31,7 +34,7 @@ export class PaginationService {
 			switchMap((totalPageCount) => {
 				if (totalPageCount <= paginationWidth) {
 					return range(1, totalPageCount).pipe(
-						map(toPaginationItem),
+						map(pageNumberToPaginationItem),
 						toArray()
 					);
 				}
@@ -118,13 +121,13 @@ export class PaginationService {
 
 				return of([1]);
 			}),
-			map((pageNumbers) => pageNumbers.map(toPaginationItem))
+			map((pageNumbers) => pageNumbers.map(pageNumberToPaginationItem))
 		);
 	}
 
 	private getPaginationMiddle$(
 		paginationWidth: number
-	): Observable<Array<PaginationItem>> {
+	): Observable<Array<PaginationItem | null>> {
 		return combineLatest([
 			this.currentPage$,
 			this.isCurrentPageInHeadOrTail(paginationWidth),
@@ -140,13 +143,13 @@ export class PaginationService {
 					toArray()
 				);
 			}),
-			map((pageNumbers) => pageNumbers.map(toPaginationItem))
+			map((pageNumbers) => pageNumbers.map(pageNumberToPaginationItem))
 		);
 	}
 
 	private getPaginationTail$(
 		paginationWidth: number
-	): Observable<Array<PaginationItem>> {
+	): Observable<Array<PaginationItem | null>> {
 		return combineLatest([
 			this.totalPageCount$,
 			this.isCurrentPageInHeadOrTail(paginationWidth),
@@ -166,7 +169,7 @@ export class PaginationService {
 
 				return of([totalPageCount]);
 			}),
-			map((pageNumbers) => pageNumbers.map(toPaginationItem))
+			map((pageNumbers) => pageNumbers.map(pageNumberToPaginationItem))
 		);
 	}
 
@@ -174,40 +177,25 @@ export class PaginationService {
 		paginationWidth: number
 	): Observable<PaginationItem | null> {
 		return combineLatest([
-			this.getPaginationHead$(paginationWidth).pipe(map(toPageNumbers)),
-			this.getPaginationMiddle$(paginationWidth).pipe(map(toPageNumbers)),
-			this.getPaginationTail$(paginationWidth).pipe(map(toPageNumbers)),
+			this.getPaginationHead$(paginationWidth),
+			this.getPaginationMiddle$(paginationWidth),
+			this.getPaginationTail$(paginationWidth),
 		]).pipe(
 			map(([paginationHead, paginationMiddle, paginationTail]) => {
-				const lastPageOfHead = paginationHead.at(-1);
+				const lastPageOfHead = paginationHead.at(-1)?.pageNumber;
 
-				if (!lastPageOfHead) {
-					return null;
-				}
-
-				const firstPageOfMiddle = paginationMiddle.at(0);
-				const firstPageOfTail = paginationTail.at(0);
+				const firstPageOfMiddle = paginationMiddle.at(0)?.pageNumber;
+				const firstPageOfTail = paginationTail.at(0)?.pageNumber;
 
 				const startPageOfNextSection =
 					firstPageOfMiddle ?? firstPageOfTail;
 
-				if (!startPageOfNextSection) {
-					return null;
-				}
+				const accordionPages = indexArrayBetween(
+					lastPageOfHead,
+					startPageOfNextSection
+				);
 
-				const lengthOfAccordion =
-					startPageOfNextSection - lastPageOfHead - 1;
-
-				const accordionHalfwayPoint =
-					Math.round(lengthOfAccordion / 2) + lastPageOfHead;
-
-				return {
-					pageNumber: accordionHalfwayPoint,
-					type:
-						lengthOfAccordion < 2
-							? PaginationItemType.PAGE
-							: PaginationItemType.ACCORDION,
-				};
+				return toPaginationItem(accordionPages);
 			})
 		);
 	}
@@ -216,35 +204,19 @@ export class PaginationService {
 		paginationWidth: number
 	): Observable<PaginationItem | null> {
 		return combineLatest([
-			this.getPaginationMiddle$(paginationWidth).pipe(map(toPageNumbers)),
-			this.getPaginationTail$(paginationWidth).pipe(map(toPageNumbers)),
+			this.getPaginationMiddle$(paginationWidth),
+			this.getPaginationTail$(paginationWidth),
 		]).pipe(
 			map(([paginationMiddle, paginationTail]) => {
-				const lastPageOfMiddle = paginationMiddle.at(-1);
+				const lastPageOfMiddle = paginationMiddle.at(-1)?.pageNumber;
+				const firstPageOfTail = paginationTail.at(0)?.pageNumber;
 
-				if (!lastPageOfMiddle) {
-					return null;
-				}
+				const accordionPages = indexArrayBetween(
+					lastPageOfMiddle,
+					firstPageOfTail
+				);
 
-				const firstPageOfTail = paginationTail.at(0);
-
-				if (!firstPageOfTail) {
-					return null;
-				}
-
-				const lengthOfAccordion =
-					firstPageOfTail - lastPageOfMiddle - 1;
-
-				const accordionHalfwayPoint =
-					Math.round(lengthOfAccordion / 2) + lastPageOfMiddle;
-
-				return {
-					pageNumber: accordionHalfwayPoint,
-					type:
-						lengthOfAccordion < 2
-							? PaginationItemType.PAGE
-							: PaginationItemType.ACCORDION,
-				};
+				return toPaginationItem(accordionPages);
 			})
 		);
 	}
@@ -289,15 +261,42 @@ export class PaginationService {
 	}
 }
 
-const toPaginationItem = (pageNumbers: number): PaginationItem => {
+const pageNumberToPaginationItem = (pageNumbers: number): PaginationItem => {
 	return {
 		pageNumber: pageNumbers,
 		type: PaginationItemType.PAGE,
 	};
 };
 
-const toPageNumbers = (
-	paginationItem: Array<PaginationItem>
-): Array<number> => {
-	return paginationItem.map((item) => item.pageNumber);
+const toPaginationItem = (
+	pageNumbers: Array<number>
+): PaginationItem | null => {
+	const pageNumberCount = pageNumbers.length;
+	const pageNumber = pageNumbers.at(pageNumberCount / 2);
+
+	if (!pageNumber) {
+		return null;
+	}
+
+	const type =
+		pageNumberCount > 1
+			? PaginationItemType.ACCORDION
+			: PaginationItemType.PAGE;
+
+	return {
+		pageNumber,
+		type,
+	};
+};
+
+const indexArrayBetween = (start?: number, end?: number): Array<number> => {
+	if (!start || !end) {
+		return [];
+	}
+
+	const indexArray = new Array<number>();
+	for (let index = start; index < end - 1; index++) {
+		indexArray.push(index + 1);
+	}
+	return indexArray;
 };
