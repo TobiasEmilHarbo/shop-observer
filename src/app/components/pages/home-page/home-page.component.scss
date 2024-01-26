@@ -16,8 +16,8 @@
 				display: block;
 				grid-column: 1;
 				grid-row: 1;
-				width: 100%;
-				height: 100%;
+				width: 42px;
+				height: 42px;
 				border-radius: 8px;
 			}
 
@@ -138,45 +138,47 @@
 
 			h1 {
 				margin: 0;
-				line-height: 40px;
+				line-height: 1.25em;
+				font-size: 1.75em;
 				align-self: center;
+
+				@media only screen and (min-width: 30em) {
+					& {
+						line-height: 1.75em;
+						font-size: 2em;
+					}
+				}
 			}
 
-			span.icon {
+			span.page-icon {
 				display: block;
 				background-image: url('./../../../../assets/images/binoculars_64.png');
 				background-repeat: no-repeat;
 				background-position: center;
 			}
 		}
-	}
 
-	button {
-		border: 0;
-		border-radius: 100%;
-		cursor: pointer;
-		font-size: 40px;
-		margin: 40px;
-
-		&.show-observations, &.close {
-			width: 40px;
-			height: 40px;
-			display: grid;
-			font-size: 24px;
-			justify-items: center;
-			align-items: center;
+		button {
 			justify-self: end;
-			background-color: #fff;
 
 			@media only screen and (min-width: 64em) {
 				& {
 					display: none;
 				}
 			}
+		}
+	}
 
-			span {
-				display: inline-block;
-				margin-bottom: -8%;
+	button {
+		margin: 40px;
+
+		&.show-observations, &.close {
+			justify-self: end;
+
+			@media only screen and (min-width: 64em) {
+				& {
+					display: none;
+				}
 			}
 		}
 
@@ -184,20 +186,10 @@
 			position: fixed;
 			bottom: 0;
 			right: 0;
-			background-color: #fd8469;
-			border: 1px solid #fc836a;
 
+			font-size: 20px;
 			font-weight: bold;
-			color: #f6f6f6;
-			width: 64px;
-			height: 64px;
 
-			-webkit-box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
-			box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
-
-			&:hover {
-				background-color: #d76950;
-			}
 
 			@media only screen and (min-width: 64em) {
 				& {

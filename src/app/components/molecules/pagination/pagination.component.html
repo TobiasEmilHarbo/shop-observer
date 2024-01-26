@@ -1,7 +1,7 @@
 <ng-container *ngIf="pagination">
 	<button
 		(click)="previousPage()"
-		class="previousPage"
+		class="previousPage btn btn-round"
 		[disabled]="pagination.isPreviousButtonDisabled"
 	>
 		<span class="icon-arrow-left"></span>
@@ -15,7 +15,7 @@
 
 	<button
 		(click)="nextPage()"
-		class="nextPage"
+		class="nextPage btn btn-round"
 		[disabled]="pagination.isNextButtonDisabled"
 	>
 		<span class="icon-arrow-right"></span>

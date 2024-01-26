@@ -1,12 +1,16 @@
 <!-- <button (click)="signOut()">sign out</button> -->
 <header>
 	<div class="logo">
-		<span class="icon"></span>
+		<span class="page-icon"></span>
 		<h1>Shop Observer</h1>
 	</div>
 
-	<button class="show-observations" (click)="showObservations()">
-		<span>&#8676;</span>
+	<button
+		class="show-observations"
+		(click)="showObservations()"
+		class="btn btn-round"
+	>
+		<span class="icon-open-sidebar-right"></span>
 	</button>
 </header>
 
@@ -56,7 +60,9 @@
 
 <aside [class]="{ 'observed-searches': true, show: showObservationsPanel }">
 	<header>
-		<button (click)="showObservations()" class="close">&#8677;</button>
+		<button (click)="showObservations()" class="close btn btn-round">
+			<span class="icon-x"></span>
+		</button>
 	</header>
 
 	<app-search-query
@@ -67,6 +73,9 @@
 	</app-search-query>
 </aside>
 
-<button (click)="addSearchToObservation()" class="add-search-to-observations">
-	&#x2b;
+<button
+	(click)="addSearchToObservation()"
+	class="add-search-to-observations btn btn-primary btn-round btn-floating"
+>
+	<span class="icon-plus"></span>
 </button>

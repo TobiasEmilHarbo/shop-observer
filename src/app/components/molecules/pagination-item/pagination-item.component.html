@@ -1,7 +1,8 @@
 <ng-container *ngIf="paginationItem" [ngSwitch]="paginationItem.type">
 	<button
 		(click)="selectPage(paginationItem.pageNumber)"
-		[ngClass]="{ 'current-page': paginationItem.current }"
+		class="btn btn-round"
+		[ngClass]="{ 'btn-secondary': paginationItem.current }"
 	>
 		<span
 			*ngSwitchCase="PaginationItemType.ACCORDION"

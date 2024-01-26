@@ -8,10 +8,7 @@ import {
 	map,
 	of,
 	range,
-	share,
-	shareReplay,
 	switchMap,
-	tap,
 	toArray,
 } from 'rxjs';
 import { PaginationItem } from '@models/PaginationItem.model';
@@ -248,7 +245,6 @@ export class PaginationService {
 		return combineLatest([this.currentPage$, this.totalPageCount$]).pipe(
 			map(([currentPage, totalPageCount]) => {
 				const headAndTailWidth = Math.floor(paginationWidth / 2);
-
 				if (
 					currentPage <= headAndTailWidth ||
 					headAndTailWidth > totalPageCount - currentPage
