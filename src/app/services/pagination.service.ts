@@ -12,10 +12,10 @@ import {
 	toArray,
 } from 'rxjs';
 import { PaginationItem } from '@models/PaginationItem.model';
-import { PaginationItemType } from '../models/PaginationItemType.model';
+import { PaginationItemType } from '../models/PaginationItemType';
 import { Pagination } from '../models/Pagination.model';
 import { existsGuard } from '../util';
-import { PaginationSize } from '../models/PaginationSize.model';
+import { PaginationSize } from '../models/PaginationSize';
 
 @Injectable({
 	providedIn: 'root',

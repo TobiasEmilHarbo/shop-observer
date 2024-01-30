@@ -3,9 +3,9 @@ import { TestBed } from '@angular/core/testing';
 import { PaginationService } from './pagination.service';
 import { TestScheduler } from 'rxjs/testing';
 import { Pagination } from '../models/Pagination.model';
-import { PaginationItemType } from '../models/PaginationItemType.model';
+import { PaginationItemType } from '../models/PaginationItemType';
 import { PaginationItem } from '../models/PaginationItem.model';
-import { PaginationSize } from '../models/PaginationSize.model';
+import { PaginationSize } from '../models/PaginationSize';
 
 describe('PaginationService', () => {
 	let service: PaginationService;

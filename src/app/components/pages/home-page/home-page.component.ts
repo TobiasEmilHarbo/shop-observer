@@ -10,16 +10,16 @@ import {
 	tap,
 } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Collection } from 'functions/src/domain/Collection';
-import { WebshopId } from 'functions/src/external/WebshopId';
+import { Collection } from '@models/Collection';
+import { WebshopId } from '@models/WebshopId';
 import { Page } from '@models/Page.model';
 import { Item } from '@models/Item.model';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 import { AuthService } from '@services/auth.service';
 import { HttpClientService } from '@services/http-client.service';
 import { PaginationService } from '@services/pagination.service';
-import { Pagination } from '../../../models/Pagination.model';
-import { PaginationSize } from '../../../models/PaginationSize.model';
+import { Pagination } from '@models/Pagination.model';
+import { PaginationSize } from '@models/PaginationSize';
 
 @Component({
 	selector: 'app-home-page',

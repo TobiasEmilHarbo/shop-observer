@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PaginationItem } from '../../../models/PaginationItem.model';
-import { PaginationItemType } from '../../../models/PaginationItemType.model';
+import { PaginationItemType } from '../../../models/PaginationItemType';
 
 @Component({
 	selector: 'app-pagination-item',

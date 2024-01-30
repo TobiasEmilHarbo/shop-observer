@@ -8,7 +8,7 @@
 
 		<p>{{ item?.price }} {{ item?.currency }}</p>
 		<ul *ngIf="item?.specifications">
-			<li *ngFor="let spec of item.specifications">
+			<li *ngFor="let spec of item?.specifications">
 				<span class="label">{{ spec.label }}:</span>&nbsp;
 				<span>{{ spec.value }}</span>
 			</li>

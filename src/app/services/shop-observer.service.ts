@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable, combineLatest, first, switchMap, take, tap } from 'rxjs';
-import { ObservedSearchQuery } from '../../../functions/src/domain/ObservedSearchQuery';
 import { AuthService } from './auth.service';
-import { Collection } from '../../../functions/src/domain/Collection';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { SearchQuery } from '@models/SearchQuery.model';
+import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
+import { Collection } from '@models/Collection';
 
 @Injectable({
 	providedIn: 'root',

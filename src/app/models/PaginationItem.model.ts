@@ -1,4 +1,4 @@
-import { PaginationItemType } from './PaginationItemType.model';
+import { PaginationItemType } from './PaginationItemType';
 
 export interface PaginationItem {
 	pageNumber: number;

@@ -7,6 +7,6 @@ import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 	styleUrls: ['./search-query.component.scss'],
 })
 export class SearchQueryComponent {
-	@Input() public search!: ObservedSearchQuery;
+	@Input() public search: ObservedSearchQuery | null = null;
 	@Output() public deleteSearch = new EventEmitter<string>();
 }
