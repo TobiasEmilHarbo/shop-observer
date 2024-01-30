@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+	NEVER,
 	Observable,
 	ReplaySubject,
 	debounceTime,
@@ -12,7 +13,7 @@ import {
 	switchMap,
 	take,
 } from 'rxjs';
-import { Item } from '@models/Item.model';
+import { Item } from '@models/ShopItem.model';
 import { Page } from '@models/Page.model';
 import { SearchQuery } from '@models/SearchQuery.model';
 import { Shop } from '@models/Shop.model';
@@ -30,7 +31,7 @@ export class ShopPageComponent implements OnInit {
 	public shopName!: String;
 	public shopLogo!: String;
 	public searchResultPage$!: Observable<Page<Item> | null>;
-	public isLoading$!: Observable<boolean>;
+	public isLoading$: Observable<boolean> = NEVER;
 	public observedSearch$!: Observable<Array<ObservedSearchQuery>>;
 
 	private shop!: Shop;

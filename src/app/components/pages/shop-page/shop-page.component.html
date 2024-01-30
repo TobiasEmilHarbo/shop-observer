@@ -1,3 +1,7 @@
+<header>
+	<app-page-logo></app-page-logo>
+</header>
+
 <section class="search">
 	<header>
 		<img [src]="shopLogo" />
@@ -18,13 +22,20 @@
 
 	<app-search-result-page
 		[page]="searchResultPage$ | async"
-		[isLoading]="(isLoading$ | async) || false"
+		[isLoading]="!!(isLoading$ | async)"
 	>
 	</app-search-result-page>
+
+	<app-empty-state-search
+		*ngIf="!(isLoading$ | async) && !(searchResultPage$ | async)"
+	></app-empty-state-search>
 </section>
 
-<button (click)="addSearchToObservation()" class="add-search-to-observations">
-	&#x2b;
+<button
+	(click)="addSearchToObservation()"
+	class="add-search-to-observations btn btn-primary btn-round btn-floating"
+>
+	<span class="icon-plus"></span>
 </button>
 <!--
 <app-overlay (onClick)="dismiss()">

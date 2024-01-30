@@ -46,6 +46,7 @@ button.btn {
 	&.btn-floating {
 		width: 64px;
 		height: 64px;
+		font-size: 18px;
 
 		-webkit-box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
 		box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.4);
@@ -130,9 +131,11 @@ span {
 	}
 
 	&.icon-plus {
+		font-size: 2em;
+		line-height: 0;
+		vertical-align: sub;
 		&::after {
 			content: "+";
-			font-size: 2em;
 		}
 	}
 }

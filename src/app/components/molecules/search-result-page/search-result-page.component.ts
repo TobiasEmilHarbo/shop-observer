@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Item } from '@models/Item.model';
+import { Item } from '@models/ShopItem.model';
 import { Page } from '@models/Page.model';
 
 @Component({

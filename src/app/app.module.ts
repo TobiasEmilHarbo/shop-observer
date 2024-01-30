@@ -26,6 +26,8 @@ import { OverlayComponent } from './components/atoms/overlay/overlay.component';
 import { ObservedQueriesComponent } from './components/molecules/observed-queries/observed-queries.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 import { PaginationItemComponent } from './components/molecules/pagination-item/pagination-item.component';
+import { PageLogoComponent } from './components/atoms/page-logo/page-logo.component';
+import { EmptyStateSearchComponent } from './components/atoms/empty-state-search/empty-state-search.component';
 
 @NgModule({
 	declarations: [
@@ -42,6 +44,8 @@ import { PaginationItemComponent } from './components/molecules/pagination-item/
 		ObservedQueriesComponent,
 		PaginationComponent,
 		PaginationItemComponent,
+  PageLogoComponent,
+  EmptyStateSearchComponent,
 	],
 	imports: [
 		BrowserModule,

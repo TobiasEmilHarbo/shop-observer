@@ -13,7 +13,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Collection } from '@models/Collection';
 import { WebshopId } from '@models/WebshopId';
 import { Page } from '@models/Page.model';
-import { Item } from '@models/Item.model';
+import { Item } from '@models/ShopItem.model';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 import { AuthService } from '@services/auth.service';
 import { HttpClientService } from '@services/http-client.service';

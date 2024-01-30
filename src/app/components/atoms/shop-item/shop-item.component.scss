@@ -4,7 +4,7 @@
 	border-radius: 8px;
 	display: block;
 	min-width: 0;
-	overflow: hidden;
+	overflow: clip;
 
 	div.product-image {
 		background-size: cover;

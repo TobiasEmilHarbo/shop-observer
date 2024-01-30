@@ -1,12 +1,13 @@
 :host {
-	border: solid 1px #dadada;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-color: #dadada;
 	transition: transform .4s;
 	background: #f5f5f5;
-	border-radius: 16px;
 	display: flex;
 	flex-direction: column;
 	row-gap: 16px;
-	padding: 16px;
 	justify-self: end;
-	margin-top: -1px;
+	padding-right: 16px;
+	padding-left: 32px;
 }

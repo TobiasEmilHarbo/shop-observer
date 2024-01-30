@@ -130,34 +130,6 @@
 		display: grid;
 		grid-template-columns: auto auto;
 
-		div.logo {
-			display: grid;
-			grid-template-columns: 88px auto;
-			grid-template-rows: 80px;
-			margin: 16px;
-
-			h1 {
-				margin: 0;
-				line-height: 1.25em;
-				font-size: 1.75em;
-				align-self: center;
-
-				@media only screen and (min-width: 30em) {
-					& {
-						line-height: 1.75em;
-						font-size: 2em;
-					}
-				}
-			}
-
-			span.page-icon {
-				display: block;
-				background-image: url('./../../../../assets/images/binoculars_64.png');
-				background-repeat: no-repeat;
-				background-position: center;
-			}
-		}
-
 		button {
 			justify-self: end;
 
