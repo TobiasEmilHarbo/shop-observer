@@ -89,11 +89,10 @@ export default class KlaravikObjectMapper {
 	}
 
 	private getPrice(itemDom: CheerioAPI): Price {
-		const highestBid = itemDom('div.highestBid').text();
-		const currency = highestBid.split(' ').at(-1) as string;
-		const price = highestBid
-			.substring(0, highestBid.lastIndexOf(' '))
-			.replace(' ', '');
+		const highestBid = itemDom('div.highestBid').html() ?? '';
+		const highestBidParts = highestBid.split('&nbsp;');
+		const currency = highestBidParts.at(-1) ?? '';
+		const price = highestBidParts.at(0)?.replace('.', '') ?? '';
 
 		return {
 			price,
@@ -128,9 +127,9 @@ export default class KlaravikObjectMapper {
 	}
 
 	private getImageUrl(itemDom: CheerioAPI): string {
-		return `${this.host}${load(itemDom('div.listingBox a noscript').text())(
-			'img'
-		).attr('src')}`;
+		return `${load(itemDom('div.listingBox a noscript').text())('img').attr(
+			'src'
+		)}`;
 	}
 
 	private getName(itemDom: CheerioAPI): string {

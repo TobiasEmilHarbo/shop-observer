@@ -11,11 +11,11 @@ export default class KlaravikHttpClient {
 		pageNumber: number = this.defaultPageNumber,
 		pageSize: number = this.defaultPageSize
 	): Promise<AxiosResponse<string, unknown>> {
-		console.log('query:', searchString, pageNumber, pageSize);
-		return axios.get(`${this.host}/auction/${pageNumber}/`, {
+		return axios.get(`${this.host}/auction/`, {
 			params: {
 				searchtext: searchString,
 				setperpage: pageSize,
+				curpage: pageNumber,
 			},
 		});
 	}
