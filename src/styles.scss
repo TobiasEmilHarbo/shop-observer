@@ -37,6 +37,11 @@ button.btn {
 		opacity: .5;
 	}
 
+	&.btn-light {
+		background: transparent;
+		border-color: transparent;
+	}
+
 	&.btn-round {
 		border-radius: 100%;
 		height: 44px;
@@ -73,6 +78,7 @@ button.btn {
 span {
 	&[class^="icon-"] {
 		color: inherit;
+		line-height: 1em;
 
 		&::after {
 			display: inline-block;
@@ -81,7 +87,6 @@ span {
 
 	&.icon-arrow-left, &.icon-arrow-right {
 		font-size: 1.5em;
-		line-height: unset;
 
 		&::after {
 			content: "➞";
@@ -103,7 +108,6 @@ span {
 
 	&.icon-ellipsis {
 		font-size: 1.5em;
-		line-height: unset;
 
 		&::after {
 			content: "⋯";
@@ -134,8 +138,31 @@ span {
 		font-size: 2em;
 		line-height: 0;
 		vertical-align: sub;
+
 		&::after {
 			content: "+";
+		}
+	}
+
+	&.icon-magnifying-glass {
+		font-size: 1.5em;
+		font-weight: bold;
+
+		&::after {
+			content: "⚲";
+			transform: rotate(-45deg);
+			vertical-align: middle;
+		}
+	}
+
+	&.icon-time {
+		font-weight: bold;
+
+		&::after {
+			font-size: 1.5em;
+			vertical-align: middle;
+			transform: rotate(-90deg);
+			content: "⏲";
 		}
 	}
 }

@@ -28,6 +28,7 @@ import { PaginationComponent } from './components/molecules/pagination/paginatio
 import { PaginationItemComponent } from './components/molecules/pagination-item/pagination-item.component';
 import { PageLogoComponent } from './components/atoms/page-logo/page-logo.component';
 import { EmptyStateSearchComponent } from './components/atoms/empty-state-search/empty-state-search.component';
+import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
 
 @NgModule({
 	declarations: [
@@ -46,6 +47,7 @@ import { EmptyStateSearchComponent } from './components/atoms/empty-state-search
 		PaginationItemComponent,
   PageLogoComponent,
   EmptyStateSearchComponent,
+  SpinnerComponent,
 	],
 	imports: [
 		BrowserModule,

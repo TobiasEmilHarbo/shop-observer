@@ -7,6 +7,36 @@ import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 	styleUrls: ['./search-query.component.scss'],
 })
 export class SearchQueryComponent {
-	@Input() public search: ObservedSearchQuery | null = null;
+	private _searchQuery: ObservedSearchQuery | null = null;
+	public searchQueryString: string = '';
+	public searchQueryId: string = '';
+	public shopIconUrl: string = '';
+	public itemCount: number = 0;
+	public dateOfSearch: number = 0;
+
+	public isLoading: boolean = true;
+
+	@Input() public set search(searchQuery: ObservedSearchQuery) {
+		this._searchQuery = searchQuery;
+
+		this.isLoading = searchQuery.id ? false : true;
+
+		this.searchQueryId = searchQuery.id ?? '';
+		this.searchQueryString = searchQuery.query ?? '';
+		this.shopIconUrl = searchQuery.shopLogoUrl ?? '';
+		this.itemCount = searchQuery.itemIds?.length ?? 0;
+
+		this.dateOfSearch = searchQuery?.updateTime ?? 0;
+	}
+
 	@Output() public deleteSearch = new EventEmitter<string>();
+	@Output() public executeSearch = new EventEmitter<ObservedSearchQuery>();
+
+	public doSearch(): void {
+		if (!this._searchQuery) {
+			return;
+		}
+
+		this.executeSearch.emit(this._searchQuery);
+	}
 }

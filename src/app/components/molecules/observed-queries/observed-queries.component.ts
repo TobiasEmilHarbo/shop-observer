@@ -16,9 +16,5 @@ import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 export class ObservedQueriesComponent {
 	@Input() public observedSearches: Array<ObservedSearchQuery> | null = null;
 	@Output() public deleteSearch = new EventEmitter<string>();
-
-	public deleteSearch2(id: string) {
-		console.log('delete 1', id);
-		this.deleteSearch.emit(id);
-	}
+	@Output() public executeSearch = new EventEmitter<ObservedSearchQuery>();
 }

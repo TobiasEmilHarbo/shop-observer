@@ -8,16 +8,36 @@
 
 		<app-search-field
 			(doSearch)="doSearch($event)"
+			[queryString]="searchString$ | async"
 			[placeholderText]="'Search the site of ' + shopName"
 		></app-search-field>
 
-		<!-- <app-pagination-display
+		<app-pagination
+			class="medium"
 			*ngIf="searchResultPage$ | async as resultPage"
-			[pagination]="paginationDisplay$ | async"
+			[pagination]="paginationMedium$ | async"
 			[currentPageNumber]="resultPage.number"
-			(onPageSelect)="pageSelect($event)"
+			(onPageSelect)="selectPage($event)"
 		>
-		</app-pagination-display> -->
+		</app-pagination>
+
+		<app-pagination
+			class="small"
+			*ngIf="searchResultPage$ | async as resultPage"
+			[pagination]="paginationSmall$ | async"
+			[currentPageNumber]="resultPage.number"
+			(onPageSelect)="selectPage($event)"
+		>
+		</app-pagination>
+
+		<app-pagination
+			class="mini"
+			*ngIf="searchResultPage$ | async as resultPage"
+			[pagination]="paginationMini$ | async"
+			[currentPageNumber]="resultPage.number"
+			(onPageSelect)="selectPage($event)"
+		>
+		</app-pagination>
 	</header>
 
 	<app-search-result-page
@@ -37,6 +57,7 @@
 >
 	<span class="icon-plus"></span>
 </button>
+
 <!--
 <app-overlay (onClick)="dismiss()">
 	<app-observed-queries
@@ -45,7 +66,10 @@
 	></app-observed-queries>
 </app-overlay> -->
 
-<app-observed-queries
-	[observedSearches]="observedSearch$ | async"
-	(deleteSearch)="deleteSearch($event)"
-></app-observed-queries>
+<aside>
+	<app-observed-queries
+		[observedSearches]="observedSearch$ | async"
+		(deleteSearch)="deleteSearch($event)"
+		(executeSearch)="doSearch($event.query)"
+	></app-observed-queries>
+</aside>

@@ -5,6 +5,7 @@ import {
 	Observable,
 	ReplaySubject,
 	debounceTime,
+	distinctUntilChanged,
 	filter,
 	map,
 	merge,
@@ -12,6 +13,7 @@ import {
 	share,
 	switchMap,
 	take,
+	tap,
 } from 'rxjs';
 import { Item } from '@models/ShopItem.model';
 import { Page } from '@models/Page.model';
@@ -20,6 +22,9 @@ import { Shop } from '@models/Shop.model';
 import { ShopsService } from '@services/shops.service';
 import { ShopObserverService } from '@services/shop-observer.service';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
+import { PaginationService } from '@services/pagination.service';
+import { PaginationSize } from '@models/PaginationSize';
+import { Pagination } from '@models/Pagination.model';
 
 @Component({
 	selector: 'app-shop-page',
@@ -36,14 +41,34 @@ export class ShopPageComponent implements OnInit {
 
 	private shop!: Shop;
 	private searchQuery$ = new ReplaySubject<SearchQuery>(1);
+	public searchString$ = this.searchQuery$.pipe(
+		map((query) => query.searchString)
+	);
+
+	public paginationMedium$: Observable<Pagination> = NEVER;
+	public paginationSmall$: Observable<Pagination> = NEVER;
+	public paginationMini$: Observable<Pagination> = NEVER;
 
 	constructor(
 		private route: ActivatedRoute,
 		private shopService: ShopsService,
-		private shopObserver: ShopObserverService
+		private shopObserver: ShopObserverService,
+		private paginationService: PaginationService
 	) {}
 
 	public ngOnInit(): void {
+		this.paginationMedium$ = this.paginationService.getPagination$(
+			PaginationSize.MEDIUM
+		);
+
+		this.paginationSmall$ = this.paginationService.getPagination$(
+			PaginationSize.SMALL
+		);
+
+		this.paginationMini$ = this.paginationService.getPagination$(
+			PaginationSize.MINI
+		);
+
 		this.shop = this.route.snapshot.data['shop'];
 		this.shopName = this.shop?.name;
 		this.shopLogo = this.shop?.logoUrl;
@@ -51,7 +76,8 @@ export class ShopPageComponent implements OnInit {
 		this.observedSearch$ = this.shopObserver.getObservedSearchOfUser();
 
 		this.searchResultPage$ = this.searchQuery$.pipe(
-			debounceTime(200),
+			distinctUntilChanged(compareSearchQueries),
+			debounceTime(400),
 			switchMap((searchQuery) => {
 				console.log('DO SEARCH', searchQuery);
 				if (!searchQuery.searchString.trim()) {
@@ -59,12 +85,18 @@ export class ShopPageComponent implements OnInit {
 				}
 				return this.shopService.doSearch(this.shop.id, searchQuery);
 			}),
+			tap((searchResultPage) => {
+				this.paginationService.updatePagination(
+					searchResultPage?.totalPages,
+					searchResultPage?.number
+				);
+			}),
 			share()
 		);
 
 		this.isLoading$ = merge(
 			this.searchQuery$.pipe(
-				filter((searchString) => !!searchString.searchString.trim()),
+				distinctUntilChanged(compareSearchQueries),
 				map(() => true)
 			),
 			this.searchResultPage$.pipe(map(() => false))
@@ -102,3 +134,7 @@ export class ShopPageComponent implements OnInit {
 		);
 	}
 }
+
+const compareSearchQueries = (a: SearchQuery, b: SearchQuery) => {
+	return a.searchString === b.searchString && a.page === b.page;
+};

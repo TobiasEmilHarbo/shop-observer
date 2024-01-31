@@ -1,21 +1,31 @@
-<header>
-	<img [src]="search?.shopLogoUrl" />
-	<h4>{{ search?.query }}</h4>
-</header>
+<div [ngClass]="{ loading: isLoading }">
+	<header>
+		<img [src]="shopIconUrl" />
+		<app-spinner></app-spinner>
+		<h4>{{ searchQueryString }}</h4>
+		<button
+			class="btn btn-round btn-light"
+			(click)="deleteSearch.emit(searchQueryId)"
+		>
+			<span class="icon-x"></span>
+		</button>
+	</header>
 
-<div class="stats">
-	<ul>
-		<li>{{ search?.shopId }}</li>
-		<li>{{ search?.itemIds?.length }}</li>
-		<li>{{ search?.updateTime }}</li>
-	</ul>
-</div>
+	<div class="stats">
+		<div>
+			Resulted in {{ itemCount }} product<span *ngIf="itemCount !== 1"
+				>s</span
+			>
+		</div>
+		<div class="time">
+			<span class="icon-time"></span
+			>{{ dateOfSearch | date : "MMM d, y, HH:mm" }}
+		</div>
+	</div>
 
-<div class="actions">
-	<button class="search">
-		<span>&#9906;</span>
-	</button>
-	<button class="delete-search" (click)="deleteSearch.emit(search?.id)">
-		&#10005;
-	</button>
+	<div class="actions">
+		<button class="search btn" (click)="doSearch()">
+			<span class="icon-magnifying-glass"></span>
+		</button>
+	</div>
 </div>
