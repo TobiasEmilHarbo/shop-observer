@@ -1,10 +1,10 @@
-import { WebshopId } from '../external/WebshopId';
+import { Shop } from './Shop';
 
 export interface PartialObservedSearchQuery {
 	id: string;
 	userId: string;
-	query: string;
-	shopId: WebshopId;
-	itemIds: Array<string>;
+	searchString: string;
+	itemIds?: Array<string>;
 	createTime: number;
+	shop: Shop;
 }

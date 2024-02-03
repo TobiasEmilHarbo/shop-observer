@@ -73,7 +73,7 @@ export class ShopPageComponent implements OnInit {
 		this.shopName = this.shop?.name;
 		this.shopLogo = this.shop?.logoUrl;
 
-		this.observedSearch$ = this.shopObserver.getObservedSearchOfUser();
+		this.observedSearch$ = this.shopObserver.getUsersObservedSearchArray$();
 
 		this.searchResultPage$ = this.searchQuery$.pipe(
 			distinctUntilChanged(compareSearchQueries),
@@ -128,10 +128,14 @@ export class ShopPageComponent implements OnInit {
 	}
 
 	public addSearchToObservation(): void {
-		this.shopObserver.addSearchToObservation(
-			this.searchQuery$.asObservable(),
-			this.shop.id
-		);
+		const sub = this.shopObserver
+			.addSearchQueryObservationList(
+				this.shop,
+				this.searchQuery$.asObservable()
+			)
+			.subscribe(() => {
+				sub.unsubscribe();
+			});
 	}
 }
 

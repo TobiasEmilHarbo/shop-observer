@@ -19,5 +19,9 @@ export default functions.firestore
 			return;
 		}
 
-		await notifier.notify(searchQuery.userId, searchQuery.shopId, newItems);
+		await notifier.notify(
+			searchQuery.userId,
+			searchQuery.shop.id,
+			newItems
+		);
 	});

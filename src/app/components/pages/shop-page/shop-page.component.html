@@ -67,9 +67,12 @@
 </app-overlay> -->
 
 <aside>
+	<header>
+		<h3>Observed search queries</h3>
+	</header>
 	<app-observed-queries
 		[observedSearches]="observedSearch$ | async"
 		(deleteSearch)="deleteSearch($event)"
-		(executeSearch)="doSearch($event.query)"
+		(executeSearch)="doSearch($event.searchString)"
 	></app-observed-queries>
 </aside>

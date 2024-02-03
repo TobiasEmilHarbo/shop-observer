@@ -1,7 +1,7 @@
-import { WebshopId } from '../external/WebshopId';
+import { Shop } from './Shop';
 
 export interface SearchQueryRequest {
 	userId: string;
-	query: string;
-	shopId: WebshopId;
+	searchString: string;
+	shop: Shop;
 }

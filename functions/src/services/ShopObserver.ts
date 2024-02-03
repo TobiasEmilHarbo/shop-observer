@@ -17,12 +17,13 @@ export default class ShopObserver {
 	public createObservedSearchQuery(
 		searchQuery: PartialObservedSearchQuery
 	): Observable<ObservedSearchQuery> {
+		console.log('createObservedSearchQuery', searchQuery.shop.id);
 		const shopService = this.webshopServiceFactory.getWebshopService(
-			searchQuery.shopId
+			searchQuery.shop.id
 		);
 
 		const itemId$ = from(
-			shopService.getItemsFromAllPages(searchQuery.query)
+			shopService.getItemsFromAllPages(searchQuery.searchString)
 		).pipe(map((items: Array<Item>) => items.map((item: Item) => item.id)));
 
 		return itemId$.pipe(
@@ -40,6 +41,7 @@ export default class ShopObserver {
 	public async updateQueryItems(
 		searchQuery: PartialObservedSearchQuery
 	): Promise<Array<Item>> {
+		console.log('updateQueryItems');
 		const { newItems, allItems } = await this.detectNewShopItems(
 			searchQuery
 		);
@@ -76,19 +78,25 @@ export default class ShopObserver {
 	}
 
 	public async detectNewShopItems({
-		query,
-		shopId,
-		itemIds,
+		searchString,
+		shop,
+		itemIds = [],
 	}: PartialObservedSearchQuery): Promise<{
 		newItems: Array<Item>;
 		allItems: Array<Item>;
 	}> {
-		const webshopService =
-			this.webshopServiceFactory.getWebshopService(shopId);
+		console.log('detectNewShopItems');
+		const webshopService = this.webshopServiceFactory.getWebshopService(
+			shop.id
+		);
 
-		const allItems = await webshopService.getItemsFromAllPages(query);
+		const allItems = await webshopService.getItemsFromAllPages(
+			searchString
+		);
 
 		const newItems = allItems.filter((item) => !itemIds.includes(item.id));
+
+		console.log('new items', allItems.length, newItems.length);
 
 		return {
 			newItems,

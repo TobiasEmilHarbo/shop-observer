@@ -17,6 +17,7 @@ export default class MockWebshopService implements WebshopService {
 	}
 
 	public getItemsFromAllPages(query: string): Promise<Item[]> {
+		console.log('getItemsFromAllPages', query);
 		return new Promise((resolve) => {
 			query;
 			resolve(this.getMockItems());
@@ -33,7 +34,7 @@ export default class MockWebshopService implements WebshopService {
 				items: this.getMockItems(),
 				size: 1,
 				number: pageNumber ?? 1,
-				totalPages: 20,
+				totalPages: 1,
 			};
 			resolve(page);
 		});
@@ -88,6 +89,111 @@ export default class MockWebshopService implements WebshopService {
 			},
 			{
 				id: '1237',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12373',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12374',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12375',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12376',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12377',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12378',
+				name: 'mock',
+				url: 'mock-item.com',
+				imageUrl:
+					'https://img.freepik.com/free-psd/beauty-products-mockup-design-set_53876-98728.jpg',
+				price: '1234',
+				currency: 'DKK',
+				specifications: [
+					{
+						label: 'mock-spec',
+						value: '12314',
+					},
+				],
+			},
+			{
+				id: '12379',
 				name: 'mock',
 				url: 'mock-item.com',
 				imageUrl:

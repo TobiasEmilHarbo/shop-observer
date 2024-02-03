@@ -1,10 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, combineLatest, first, switchMap, take, tap } from 'rxjs';
+import {
+	Observable,
+	Subject,
+	combineLatest,
+	first,
+	from,
+	switchMap,
+	take,
+	tap,
+} from 'rxjs';
 import { AuthService } from './auth.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import {
+	AngularFirestore,
+	DocumentReference,
+} from '@angular/fire/compat/firestore';
 import { SearchQuery } from '@models/SearchQuery.model';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 import { Collection } from '@models/Collection';
+import { Shop } from '@models/Shop.model';
+import { ObservedSearchQuery2 } from '../models/ObservedSearchQuery2.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -15,7 +29,9 @@ export class ShopObserverService {
 		private database: AngularFirestore
 	) {}
 
-	public getObservedSearchOfUser(): Observable<Array<ObservedSearchQuery>> {
+	public getUsersObservedSearchArray$(): Observable<
+		Array<ObservedSearchQuery>
+	> {
 		return this.authService.user$.pipe(
 			switchMap((user) =>
 				this.database
@@ -28,36 +44,53 @@ export class ShopObserverService {
 		);
 	}
 
-	public addSearchToObservation(
-		search$: Observable<SearchQuery>,
-		shopId: string
-	): void {
-		combineLatest([search$.pipe(take(1)), this.getObservedSearchOfUser()])
-			.pipe(
-				first(),
-				tap(([search, observedSearches]) => {
-					const match = observedSearches.find((observedSearch) => {
-						return observedSearch.query === search.searchString;
-					});
+	public addSearchQueryObservationList(
+		shop: Shop,
+		searchQuery$: Observable<SearchQuery>
+	): Observable<DocumentReference<ObservedSearchQuery2>> {
+		return this.getUsersObservedSearchArray$().pipe(
+			take(1),
+			switchMap((observedSearchArray) =>
+				searchQuery$.pipe(
+					tap((searchQuery) => {
+						const match = observedSearchArray.find(
+							(observedSearch) =>
+								observedSearch.searchString ===
+								searchQuery.searchString
+						);
 
-					if (!!match) {
-						throw new Error('Already saved');
-					}
-				}),
-				switchMap(() =>
-					combineLatest([
-						this.authService.user$.pipe(first()),
-						search$.pipe(take(1)),
-					])
+						if (!!match) {
+							throw 'Search query is already added to list of observed queries.';
+						}
+					})
 				)
-			)
-			.subscribe(([user, search]) => {
-				this.database.collection(Collection.SEARCH_QUERIES).add({
-					userId: user?.uid,
-					shopId: shopId,
-					query: search.searchString,
-				});
-			});
+			),
+			take(1),
+			switchMap(({ searchString }) =>
+				this.authService.user$.pipe(
+					switchMap((user) => {
+						const collection = new Subject<
+							DocumentReference<ObservedSearchQuery2>
+						>();
+						this.database
+							.collection<ObservedSearchQuery2>(
+								Collection.SEARCH_QUERIES
+							)
+							.add({
+								shop: shop,
+								searchString,
+								userId: user.uid,
+							})
+							.then(collection.next)
+							.catch(collection.error)
+							.finally(collection.complete);
+
+						return collection.asObservable();
+					})
+				)
+			),
+			take(1)
+		);
 	}
 
 	public removeObservedSearch(searchId: string): void {

@@ -120,7 +120,7 @@ export class HomePageComponent implements OnInit {
 				first(),
 				tap((searches) => {
 					const match = searches.find((search) => {
-						return search.query === this.currentSearch;
+						return search.searchString === this.currentSearch;
 					});
 
 					if (!!match) {

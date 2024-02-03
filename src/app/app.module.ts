@@ -14,7 +14,12 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import {
+	AngularFirestoreModule,
+	USE_EMULATOR as USE_FIRESTORE_EMULATOR,
+	SETTINGS as FIRESTORE_SETTINGS,
+} from '@angular/fire/compat/firestore';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
 import { LogInComponent } from './components/pages/log-in/log-in.component';
@@ -29,6 +34,8 @@ import { PaginationItemComponent } from './components/molecules/pagination-item/
 import { PageLogoComponent } from './components/atoms/page-logo/page-logo.component';
 import { EmptyStateSearchComponent } from './components/atoms/empty-state-search/empty-state-search.component';
 import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
+
+import firebaseConfig from 'firebase.json';
 
 @NgModule({
 	declarations: [
@@ -45,9 +52,9 @@ import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
 		ObservedQueriesComponent,
 		PaginationComponent,
 		PaginationItemComponent,
-  PageLogoComponent,
-  EmptyStateSearchComponent,
-  SpinnerComponent,
+		PageLogoComponent,
+		EmptyStateSearchComponent,
+		SpinnerComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -62,6 +69,22 @@ import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
 		AngularFireDatabaseModule,
 	],
 	providers: [
+		{
+			provide: FIRESTORE_SETTINGS,
+			useValue: { ignoreUndefinedProperties: true },
+		},
+		{
+			provide: USE_FIRESTORE_EMULATOR,
+			useValue: !environment.production
+				? ['localhost', firebaseConfig.emulators.firestore.port]
+				: undefined,
+		},
+		{
+			provide: USE_FUNCTIONS_EMULATOR,
+			useValue: !environment.production
+				? ['localhost', firebaseConfig.emulators.functions.port]
+				: undefined,
+		},
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: BaseUrlInterceptor,

@@ -10,10 +10,11 @@ export default class WebshopServiceFactory {
 	) {}
 
 	public getWebshopService(webshopId: WebshopId): WebshopService {
+		console.log('webshopId', webshopId);
 		switch (webshopId) {
-			case '9d1tQD9mw4CEetutLv7c':
+			case WebshopId.KLARAVIK:
 				return this.klaravikService;
-			case 'MOCK':
+			case WebshopId.MOCK:
 				return this.mockWebshopService;
 			default:
 				throw new Error(`No webshop found for id: '${webshopId}'`);

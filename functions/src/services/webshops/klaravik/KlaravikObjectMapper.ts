@@ -9,34 +9,35 @@ export default class KlaravikObjectMapper {
 	public toItemListPage(dom: Cheerio<Element>): Page<Item> {
 		const items = this.toItemList(dom);
 
-		const number = dom.find('div.pagination a.selected').first().text();
+		const paginationDom = dom.find('div.pagination ul.paginator');
 
-		const size = dom
-			.find('select.select_page')
-			.first()
-			.find('option[selected]')
-			.text();
+		let pageNumber = '1';
+		let totalPageCount = '1';
 
-		const paginationDom = dom.find('div.pagination').first();
+		if (paginationDom.children().length) {
+			pageNumber = paginationDom.find('li a.selected').text();
+			totalPageCount = paginationDom
+				.find('li:nth-last-child(2) a')
+				.text();
+		}
 
-		const textOfLastPaginationButton = paginationDom
-			.find('li:last-child a')
-			.text();
+		console.log('paginationDom', paginationDom);
+		console.log('pageNumber', pageNumber, totalPageCount);
 
-		const textOfSecondLastPaginationButton = paginationDom
-			.find('li:nth-last-child(2) a')
-			.text();
-
-		const totalPage =
-			textOfLastPaginationButton !== '>'
-				? textOfLastPaginationButton
-				: textOfSecondLastPaginationButton;
+		const pageSize =
+			dom
+				.find('select.secondary-sortbar-select')
+				.first()
+				.find('option[selected]')
+				.text()
+				.split(' ')
+				.at(0) ?? '30';
 
 		return {
 			items: items,
-			size: parseInt(size),
-			number: parseInt(number),
-			totalPages: parseInt(totalPage),
+			size: parseInt(pageSize),
+			number: parseInt(pageNumber),
+			totalPages: parseInt(totalPageCount),
 		};
 	}
 

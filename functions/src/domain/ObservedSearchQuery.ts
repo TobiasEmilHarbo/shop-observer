@@ -1,10 +1,10 @@
-import { WebshopId } from '../external/WebshopId';
+import { Shop } from './Shop';
 
 export interface ObservedSearchQuery {
 	id: string;
 	userId: string;
-	query: string;
-	shopId: WebshopId;
+	searchString: string;
+	shop: Shop;
 	createTime: number;
 	itemIds: Array<string>;
 	updateTime: number;

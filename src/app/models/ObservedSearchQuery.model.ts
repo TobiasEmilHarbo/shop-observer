@@ -1,9 +1,10 @@
+import { Shop } from './Shop.model';
+
 export interface ObservedSearchQuery {
 	id?: string;
 	userId: string;
-	query: string;
-	shopId: string;
-	shopLogoUrl?: string;
+	searchString: string;
+	shop: Shop;
 	createTime?: number;
 	itemIds?: Array<string>;
 	updateTime?: number;

@@ -48,6 +48,8 @@ export default class KlaravikService implements WebshopService {
 	public async getItemsFromAllPages(query: string): Promise<Array<Item>> {
 		const firstPage = await this.search(query);
 
+		console.log('FIRST PAGE', firstPage);
+
 		const pageSearches = [];
 
 		for (

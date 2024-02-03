@@ -19,11 +19,13 @@ export class SearchQueryComponent {
 	@Input() public set search(searchQuery: ObservedSearchQuery) {
 		this._searchQuery = searchQuery;
 
-		this.isLoading = searchQuery.id ? false : true;
+		console.log('searchQuery', searchQuery);
+
+		this.isLoading = searchQuery.updateTime ? false : true;
 
 		this.searchQueryId = searchQuery.id ?? '';
-		this.searchQueryString = searchQuery.query ?? '';
-		this.shopIconUrl = searchQuery.shopLogoUrl ?? '';
+		this.searchQueryString = searchQuery.searchString ?? '';
+		this.shopIconUrl = searchQuery.shop.logoUrl ?? '';
 		this.itemCount = searchQuery.itemIds?.length ?? 0;
 
 		this.dateOfSearch = searchQuery?.updateTime ?? 0;
