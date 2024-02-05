@@ -120,43 +120,46 @@
 		grid-column: 1;
 	}
 
-	& > aside {
-		height: 100%;
-		grid-row: 2;
-		grid-column: 2;
-		overflow: hidden;
-		grid-template-rows: auto 1fr;
-		padding: 0 16px;
+	& > app-observed-search-query-aside {
+		display: none;
 
 		border-left-width: 1px;
 		border-left-style: solid;
 		border-color: #dadada;
-		display: none;
 
 		@media only screen and (min-width: 64em) {
 			display: grid;
 		}
+	}
 
-		& > app-observed-queries {
-			width: 100%;
-			overflow-y: auto;
+	app-overlay aside {
+		display: grid;
+		grid-template-rows: 32px 1fr;
+		height: 100svh;
+		border-left-width: 1px;
+		border-left-style: solid;
+		border-color: #dadada;
+		background: #f5f5f5;
+
+		header {
+			display: grid;
+			padding: 16px 16px 0;
+
+			button {
+				justify-self: end;
+				position: relative;
+				z-index: 1;
+			}
+		}
+
+		app-observed-search-query-aside {
+			grid-column: 1;
+			width: 32em;
+			max-width: 100svw;
 		}
 	}
 
 	button {
-		&.show-observations, &.close {
-			@media only screen and (min-width: 64em) {
-				& {
-					display: none;
-				}
-			}
-
-			span {
-				display: inline-block;
-				margin-bottom: -8%;
-			}
-		}
-
 		&.add-search-to-observations {
 			grid-column: 1;
 			grid-row: 2;
@@ -169,29 +172,6 @@
 					grid-row: 2;
 				}
 			}
-		}
-	}
-
-	app-overlay aside {
-		display: grid;
-		border-left-width: 1px;
-		border-left-style: solid;
-		border-color: #dadada;
-		background: #f5f5f5;
-		width: 32em;
-		max-width: 100svw;
-		padding: 16px;
-		grid-template-rows: auto auto 1fr;
-		overflow: hidden;
-		height: 100%;
-
-		button {
-			justify-self: end;
-		}
-
-		app-observed-queries {
-			overflow-y: auto;
-			width: 100%;
 		}
 	}
 }

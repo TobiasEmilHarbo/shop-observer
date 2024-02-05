@@ -54,6 +54,12 @@
 	></app-empty-state-search>
 </section>
 
+<app-observed-search-query-aside
+	[observedSearches]="(observedSearch$ | async) ?? []"
+	(deleteSearch)="deleteSearch($event)"
+	(doSearch)="doSearch($event)"
+></app-observed-search-query-aside>
+
 <button
 	(click)="addSearchToObservation()"
 	class="add-search-to-observations btn btn-primary btn-round btn-floating"
@@ -61,29 +67,17 @@
 	<span class="icon-plus"></span>
 </button>
 
-<app-overlay (dismiss)="dismiss()" [ngClass]="{ show: showSidebar }">
+<app-overlay (dismiss)="dismissSidebar()" [ngClass]="{ show: showSidebar }">
 	<aside>
-		<button (click)="dismiss()" class="btn btn-round">
-			<span class="icon-x"></span>
-		</button>
 		<header>
-			<h3>Observed search queries</h3>
+			<button class="btn btn-round" (click)="dismissSidebar()">
+				<span class="icon-x"></span>
+			</button>
 		</header>
-		<app-observed-queries
-			[observedSearches]="observedSearch$ | async"
+		<app-observed-search-query-aside
+			[observedSearches]="(observedSearch$ | async) ?? []"
 			(deleteSearch)="deleteSearch($event)"
-			(executeSearch)="doSearch($event.searchString)"
-		></app-observed-queries>
+			(doSearch)="doSearch($event)"
+		></app-observed-search-query-aside>
 	</aside>
 </app-overlay>
-
-<aside>
-	<header>
-		<h3>Observed search queries</h3>
-	</header>
-	<app-observed-queries
-		[observedSearches]="observedSearch$ | async"
-		(deleteSearch)="deleteSearch($event)"
-		(executeSearch)="doSearch($event.searchString)"
-	></app-observed-queries>
-</aside>

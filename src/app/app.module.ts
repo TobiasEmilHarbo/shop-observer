@@ -36,6 +36,7 @@ import { EmptyStateSearchComponent } from './components/atoms/empty-state-search
 import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
 
 import firebaseConfig from 'firebase.json';
+import { ObservedSearchQueryAsideComponent } from './components/molecules/observed-search-query-aside/observed-search-query-aside.component';
 
 @NgModule({
 	declarations: [
@@ -55,6 +56,7 @@ import firebaseConfig from 'firebase.json';
 		PageLogoComponent,
 		EmptyStateSearchComponent,
 		SpinnerComponent,
+  ObservedSearchQueryAsideComponent,
 	],
 	imports: [
 		BrowserModule,

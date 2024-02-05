@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
 	NEVER,
@@ -35,7 +35,7 @@ export class ShopPageComponent implements OnInit {
 	public shopLogo!: String;
 	public searchResultPage$!: Observable<Page<Item> | null>;
 	public isLoading$: Observable<boolean> = NEVER;
-	public observedSearch$!: Observable<Array<ObservedSearchQuery>>;
+	public observedSearch$: Observable<Array<ObservedSearchQuery>> = NEVER;
 
 	private shop!: Shop;
 	private searchQuery$ = new ReplaySubject<SearchQuery>(1);
@@ -122,7 +122,7 @@ export class ShopPageComponent implements OnInit {
 		this.shopObserver.removeObservedSearch(id);
 	}
 
-	public dismiss(): void {
+	public dismissSidebar(): void {
 		this.showSidebar = false;
 	}
 
