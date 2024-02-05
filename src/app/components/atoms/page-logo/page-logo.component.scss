@@ -2,9 +2,10 @@
 	display: grid;
 	grid-template-columns: 32px auto;
 	grid-template-rows: 32px;
-	column-gap: 16px;
+	column-gap: 8px;
 
 	@media only screen and (min-width: 64em) {
+		column-gap: 16px;
 		& {
 			grid-template-columns: 64px auto;
 			grid-template-rows: 64px;

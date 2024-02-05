@@ -29,6 +29,8 @@
 
 		app-page-logo {
 			justify-self: center;
+			grid-column: 1 / span 2;
+			grid-row: 1;
 
 			@media only screen and (min-width: 64em) {
 				& {
@@ -38,6 +40,8 @@
 		}
 
 		button {
+			grid-column: 2;
+			grid-row: 1;
 			@media only screen and (min-width: 64em) {
 				& {
 					display: none;
