@@ -1,14 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-	Observable,
-	Subject,
-	combineLatest,
-	first,
-	from,
-	switchMap,
-	take,
-	tap,
-} from 'rxjs';
+import { Observable, from, switchMap, take, tap } from 'rxjs';
 import { AuthService } from './auth.service';
 import {
 	AngularFirestore,
@@ -68,25 +59,19 @@ export class ShopObserverService {
 			take(1),
 			switchMap(({ searchString }) =>
 				this.authService.user$.pipe(
-					switchMap((user) => {
-						const collection = new Subject<
-							DocumentReference<ObservedSearchQuery2>
-						>();
-						this.database
-							.collection<ObservedSearchQuery2>(
-								Collection.SEARCH_QUERIES
-							)
-							.add({
-								shop: shop,
-								searchString,
-								userId: user.uid,
-							})
-							.then(collection.next)
-							.catch(collection.error)
-							.finally(collection.complete);
-
-						return collection.asObservable();
-					})
+					switchMap((user) =>
+						from(
+							this.database
+								.collection<ObservedSearchQuery2>(
+									Collection.SEARCH_QUERIES
+								)
+								.add({
+									shop: shop,
+									searchString,
+									userId: user.uid,
+								})
+						)
+					)
 				)
 			),
 			take(1)

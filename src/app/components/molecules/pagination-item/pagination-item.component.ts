@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
 import { PaginationItem } from '../../../models/PaginationItem.model';
 import { PaginationItemType } from '../../../models/PaginationItemType';
 
@@ -6,6 +12,7 @@ import { PaginationItemType } from '../../../models/PaginationItemType';
 	selector: 'app-pagination-item',
 	templateUrl: './pagination-item.component.html',
 	styleUrl: './pagination-item.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationItemComponent {
 	public readonly PaginationItemType = PaginationItemType;

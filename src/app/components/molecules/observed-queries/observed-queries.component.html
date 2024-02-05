@@ -1,5 +1,5 @@
 <app-search-query
-	*ngFor="let search of observedSearches"
+	*ngFor="let search of observedSearches; trackBy: trackById"
 	[search]="search"
 	(deleteSearch)="deleteSearch.emit($event)"
 	(executeSearch)="executeSearch.emit($event)"

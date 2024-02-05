@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-page-logo',
-  templateUrl: './page-logo.component.html',
-  styleUrl: './page-logo.component.scss'
+	selector: 'app-page-logo',
+	templateUrl: './page-logo.component.html',
+	styleUrl: './page-logo.component.scss',
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageLogoComponent {
-
-}
+export class PageLogoComponent {}

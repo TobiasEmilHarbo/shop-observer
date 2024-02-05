@@ -1,4 +1,4 @@
 export enum WebshopId {
 	KLARAVIK = '9d1tQD9mw4CEetutLv7c',
-	MOCK = 'MOCK',
+	MOCK = 'acme-mock-store',
 }

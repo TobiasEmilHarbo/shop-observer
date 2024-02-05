@@ -72,7 +72,7 @@ button.btn {
 		font-weight: bold;
 		color: #f6f6f6;
 
-		&:hover {
+		&:not(:disabled):hover {
 			background-color: #d76950;
 			border-color: #d66249;
 		}
@@ -168,10 +168,26 @@ span {
 		font-weight: bold;
 
 		&::after {
+			content: "⏲";
 			font-size: 1.5em;
 			vertical-align: middle;
 			transform: rotate(-90deg);
-			content: "⏲";
+		}
+	}
+
+	&.icon-sidebar {
+		&::after {
+			content: "⇽⟦";
+			font-size: 1.5em;
+		}
+	}
+
+	&.icon-check-mark {
+		&::after {
+			content: "⌐";
+			font-size: 2em;
+			vertical-align: bottom;
+			transform: scale(-1, 1) rotate(225deg);
 		}
 	}
 }

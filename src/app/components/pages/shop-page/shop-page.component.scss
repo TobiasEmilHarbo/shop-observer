@@ -2,12 +2,13 @@
 	height: 100svh;
 	display: grid;
 	padding: 16px;
+	padding-bottom: 0;
+	grid-template-rows: 44px 1fr;
 	grid-template-columns: 1fr;
-	grid-template-rows: 1fr;
 	gap: 16px;
 
 	@media only screen and (min-width: 64em) {
-		grid-template-rows: 88px 1fr;
+		grid-template-rows: 84px 1fr;
 		grid-template-columns: 1fr 22em;
 	}
 
@@ -15,11 +16,33 @@
 		grid-template-columns: 1fr 32em;
 	}
 
-	header {
-		display: none;
+	& > header {
+		display: grid;
+		grid-template-columns: auto 44px;
+		align-items: center;
 
 		@media only screen and (min-width: 64em) {
-			display: unset;
+			grid-template-columns: auto;
+			padding-left: 16px;
+			grid-column: 2;
+		}
+
+		app-page-logo {
+			justify-self: center;
+
+			@media only screen and (min-width: 64em) {
+				& {
+					justify-self: start;
+				}
+			}
+		}
+
+		button {
+			@media only screen and (min-width: 64em) {
+				& {
+					display: none;
+				}
+			}
 		}
 	}
 
@@ -29,11 +52,12 @@
 		grid-template-rows: auto minmax(0, 1fr);
 		gap: 16px;
 		grid-column: 1;
-		grid-row: 1;
+		grid-row: 2;
 		overflow: hidden;
 
 		@media only screen and (min-width: 64em) {
-			grid-row: 2;
+			grid-row: 1 / span 2;
+			padding-top: 24px;
 		}
 
 		header {
@@ -96,10 +120,8 @@
 		grid-column: 1;
 	}
 
-	aside {
-		width: 100%;
+	& > aside {
 		height: 100%;
-		display: none;
 		grid-row: 2;
 		grid-column: 2;
 		overflow: hidden;
@@ -109,25 +131,17 @@
 		border-left-width: 1px;
 		border-left-style: solid;
 		border-color: #dadada;
+		display: none;
 
 		@media only screen and (min-width: 64em) {
 			display: grid;
 		}
 
-		app-observed-queries {
+		& > app-observed-queries {
 			width: 100%;
 			overflow-y: auto;
 		}
 	}
-
-	// app-overlay {
-	// 	app-observed-queries {
-	// 		width: 300px;
-	// 		background-color: #f5f5f5;
-	// 		border-top-right-radius: 0;
-	// 		border-bottom-right-radius: 0;
-	// 	}
-	// }
 
 	button {
 		&.show-observations, &.close {
@@ -145,16 +159,39 @@
 
 		&.add-search-to-observations {
 			grid-column: 1;
-			grid-row: 1;
+			grid-row: 2;
 			justify-self: end;
 			align-self: end;
 			margin: 40px;
 
 			@media only screen and (min-width: 64em) {
-					& {
-						grid-row: 2;
-					}
+				& {
+					grid-row: 2;
 				}
+			}
+		}
+	}
+
+	app-overlay aside {
+		display: grid;
+		border-left-width: 1px;
+		border-left-style: solid;
+		border-color: #dadada;
+		background: #f5f5f5;
+		width: 32em;
+		max-width: 100svw;
+		padding: 16px;
+		grid-template-rows: auto auto 1fr;
+		overflow: hidden;
+		height: 100%;
+
+		button {
+			justify-self: end;
+		}
+
+		app-observed-queries {
+			overflow-y: auto;
+			width: 100%;
 		}
 	}
 }

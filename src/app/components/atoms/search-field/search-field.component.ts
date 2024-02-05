@@ -1,4 +1,5 @@
 import {
+	ChangeDetectionStrategy,
 	Component,
 	EventEmitter,
 	Input,
@@ -12,6 +13,7 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 	selector: 'app-search-field',
 	templateUrl: './search-field.component.html',
 	styleUrls: ['./search-field.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchFieldComponent implements OnInit, OnDestroy {
 	@Output() public doSearch = new EventEmitter<string>();

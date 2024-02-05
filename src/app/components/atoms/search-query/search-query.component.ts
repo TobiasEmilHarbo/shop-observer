@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	Input,
+	Output,
+} from '@angular/core';
 import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 
 @Component({
 	selector: 'app-search-query',
 	templateUrl: './search-query.component.html',
 	styleUrls: ['./search-query.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchQueryComponent {
 	private _searchQuery: ObservedSearchQuery | null = null;
@@ -18,8 +25,6 @@ export class SearchQueryComponent {
 
 	@Input() public set search(searchQuery: ObservedSearchQuery) {
 		this._searchQuery = searchQuery;
-
-		console.log('searchQuery', searchQuery);
 
 		this.isLoading = searchQuery.updateTime ? false : true;
 

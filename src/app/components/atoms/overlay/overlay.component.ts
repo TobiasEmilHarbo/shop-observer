@@ -10,19 +10,14 @@ import {
 	selector: 'app-overlay',
 	templateUrl: './overlay.component.html',
 	styleUrls: ['./overlay.component.scss'],
-	host: {
-		'(click)': 'click($event)',
-	},
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OverlayComponent {
-	@Output() public onClick = new EventEmitter();
+	@Output() public dismiss = new EventEmitter();
 
 	constructor(private hostElement: ElementRef) {}
 
-	public click($event: PointerEvent) {
-		if ($event.target === this.hostElement.nativeElement) {
-			this.onClick.emit();
-		}
+	public onClick($event: MouseEvent) {
+		console.log($event.target, this.hostElement.nativeElement);
 	}
 }

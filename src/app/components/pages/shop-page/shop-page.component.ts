@@ -6,7 +6,6 @@ import {
 	ReplaySubject,
 	debounceTime,
 	distinctUntilChanged,
-	filter,
 	map,
 	merge,
 	of,
@@ -30,7 +29,6 @@ import { Pagination } from '@models/Pagination.model';
 	selector: 'app-shop-page',
 	templateUrl: './shop-page.component.html',
 	styleUrls: ['./shop-page.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopPageComponent implements OnInit {
 	public shopName!: String;
@@ -48,6 +46,8 @@ export class ShopPageComponent implements OnInit {
 	public paginationMedium$: Observable<Pagination> = NEVER;
 	public paginationSmall$: Observable<Pagination> = NEVER;
 	public paginationMini$: Observable<Pagination> = NEVER;
+
+	public showSidebar: boolean = false;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -119,12 +119,11 @@ export class ShopPageComponent implements OnInit {
 	}
 
 	public deleteSearch(id: string) {
-		console.log('DELETE', id);
 		this.shopObserver.removeObservedSearch(id);
 	}
 
 	public dismiss(): void {
-		console.log('CLICK');
+		this.showSidebar = false;
 	}
 
 	public addSearchToObservation(): void {
@@ -136,6 +135,10 @@ export class ShopPageComponent implements OnInit {
 			.subscribe(() => {
 				sub.unsubscribe();
 			});
+	}
+
+	public openSidebar(): void {
+		this.showSidebar = true;
 	}
 }
 

@@ -16,4 +16,8 @@ export class SearchResultPageComponent {
 	}
 
 	@Input() public isLoading: boolean = false;
+
+	public trackById(_: number, item: Item) {
+		return item.id;
+	}
 }

@@ -1,5 +1,8 @@
 <header>
 	<app-page-logo></app-page-logo>
+	<button class="btn btn-round" (click)="openSidebar()">
+		<span class="icon-sidebar"></span>
+	</button>
 </header>
 
 <section class="search">
@@ -58,13 +61,21 @@
 	<span class="icon-plus"></span>
 </button>
 
-<!--
-<app-overlay (onClick)="dismiss()">
-	<app-observed-queries
-		[observedSearches]="observedSearch$ | async"
-		(deleteSearch)="deleteSearch($event)"
-	></app-observed-queries>
-</app-overlay> -->
+<app-overlay (dismiss)="dismiss()" [ngClass]="{ show: showSidebar }">
+	<aside>
+		<button (click)="dismiss()" class="btn btn-round">
+			<span class="icon-x"></span>
+		</button>
+		<header>
+			<h3>Observed search queries</h3>
+		</header>
+		<app-observed-queries
+			[observedSearches]="observedSearch$ | async"
+			(deleteSearch)="deleteSearch($event)"
+			(executeSearch)="doSearch($event.searchString)"
+		></app-observed-queries>
+	</aside>
+</app-overlay>
 
 <aside>
 	<header>
