@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+	BehaviorSubject,
 	NEVER,
 	Observable,
 	ReplaySubject,
@@ -10,6 +11,8 @@ import {
 	merge,
 	of,
 	share,
+	shareReplay,
+	startWith,
 	switchMap,
 	take,
 	tap,
@@ -24,6 +27,7 @@ import { ObservedSearchQuery } from '@models/ObservedSearchQuery.model';
 import { PaginationService } from '@services/pagination.service';
 import { PaginationSize } from '@models/PaginationSize';
 import { Pagination } from '@models/Pagination.model';
+import { combineLatest } from 'rxjs';
 
 @Component({
 	selector: 'app-shop-page',
@@ -55,6 +59,9 @@ export class ShopPageComponent implements OnInit {
 		private shopObserver: ShopObserverService,
 		private paginationService: PaginationService
 	) {}
+
+	public queryHasBeenAddedStatus$: Observable<boolean> = NEVER;
+	public observeQueryButtonDisabling$: Observable<boolean> = NEVER;
 
 	public ngOnInit(): void {
 		this.paginationMedium$ = this.paginationService.getPagination$(
@@ -100,6 +107,27 @@ export class ShopPageComponent implements OnInit {
 				map(() => true)
 			),
 			this.searchResultPage$.pipe(map(() => false))
+		);
+
+		this.queryHasBeenAddedStatus$ = combineLatest([
+			this.observedSearch$,
+			this.searchString$,
+		]).pipe(
+			map(([observedSearches, searchString]) => {
+				const match = observedSearches.find(
+					(observedSearch) =>
+						observedSearch.searchString === searchString
+				);
+				return !!match;
+			})
+		);
+
+		this.observeQueryButtonDisabling$ = merge(
+			this.searchString$.pipe(
+				startWith(''),
+				map((searchString) => searchString === '')
+			),
+			this.queryHasBeenAddedStatus$
 		);
 	}
 

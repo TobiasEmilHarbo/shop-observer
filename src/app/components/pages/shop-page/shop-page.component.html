@@ -62,9 +62,14 @@
 
 <button
 	(click)="addSearchToObservation()"
+	[disabled]="observeQueryButtonDisabling$ | async"
 	class="add-search-to-observations btn btn-primary btn-round btn-floating"
 >
-	<span class="icon-plus"></span>
+	<span
+		[ngClass]="
+			(queryHasBeenAddedStatus$ | async) ? 'icon-check-mark' : 'icon-plus'
+		"
+	></span>
 </button>
 
 <app-overlay (dismiss)="dismissSidebar()" [ngClass]="{ show: showSidebar }">
