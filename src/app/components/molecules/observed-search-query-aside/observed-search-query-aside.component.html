@@ -1,0 +1,8 @@
+<header>
+	<h3>Observed search queries</h3>
+</header>
+<app-observed-queries
+	[observedSearches]="observedSearches"
+	(deleteSearch)="deleteSearch.emit($event)"
+	(executeSearch)="doSearch.emit($event.searchString)"
+></app-observed-queries>
