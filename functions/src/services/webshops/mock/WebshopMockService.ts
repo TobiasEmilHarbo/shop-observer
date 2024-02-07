@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Observable, of } from 'rxjs';
 import Item from '../../../domain/Item';
 import Page from '../../../domain/Page';
