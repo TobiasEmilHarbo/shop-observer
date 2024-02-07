@@ -1,0 +1,14 @@
+:host {
+	display: grid;
+	justify-items: center;
+	align-items: center;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	height: 100svh;
+
+	div {
+		grid-row: 2;
+		display: grid;
+		justify-items: center;
+		row-gap: 16px;
+	}
+}

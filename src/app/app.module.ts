@@ -4,7 +4,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { SearchFieldComponent } from './components/atoms/search-field/search-field.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,8 +20,6 @@ import {
 } from '@angular/fire/compat/firestore';
 import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { SignUpComponent } from './components/pages/sign-up/sign-up.component';
-import { LogInComponent } from './components/pages/log-in/log-in.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SearchQueryComponent } from './components/atoms/search-query/search-query.component';
 import { SearchResultPageComponent } from './components/molecules/search-result-page/search-result-page.component';
@@ -37,15 +34,14 @@ import { SpinnerComponent } from './components/atoms/spinner/spinner.component';
 
 import firebaseConfig from 'firebase.json';
 import { ObservedSearchQueryAsideComponent } from './components/molecules/observed-search-query-aside/observed-search-query-aside.component';
+import { SignInComponent } from './components/pages/sign-in/sign-in.component';
+import { SvgIconComponent } from './components/atoms/svg-icon/svg-icon.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
-		HomePageComponent,
 		SearchFieldComponent,
 		ShopItemComponent,
-		SignUpComponent,
-		LogInComponent,
 		SearchQueryComponent,
 		SearchResultPageComponent,
 		ShopPageComponent,
@@ -56,7 +52,9 @@ import { ObservedSearchQueryAsideComponent } from './components/molecules/observ
 		PageLogoComponent,
 		EmptyStateSearchComponent,
 		SpinnerComponent,
-  ObservedSearchQueryAsideComponent,
+		ObservedSearchQueryAsideComponent,
+		SignInComponent,
+		SvgIconComponent,
 	],
 	imports: [
 		BrowserModule,

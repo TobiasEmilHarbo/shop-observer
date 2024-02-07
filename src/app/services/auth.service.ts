@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { GoogleAuthProvider } from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { filter, from, map, Observable, take } from 'rxjs';
 import { existsGuard } from '../util';
+import { Route } from '../app-routing.module';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,24 +23,17 @@ export class AuthService {
 		return this._user$.pipe(filter(existsGuard));
 	}
 
-	public signUp(email: string, password: string) {
-		return from(
-			this.angularFireAuth.createUserWithEmailAndPassword(email, password)
-		).pipe(take(1));
+	public signInWithGoogle() {
+		const provider = new GoogleAuthProvider();
+		this.angularFireAuth.signInWithPopup(provider);
 	}
 
-	public logIn(email: string, password: string) {
-		return from(
-			this.angularFireAuth.signInWithEmailAndPassword(email, password)
-		).pipe(take(1));
-	}
-
-	public isLoggedIn(): Observable<boolean> {
+	public get userAuthentication$(): Observable<boolean> {
 		return this._user$.pipe(map((user) => !!user));
 	}
 
 	public async signOut(): Promise<void> {
 		await this.angularFireAuth.signOut();
-		this.router.navigate(['/log-in']);
+		this.router.navigate([Route.SIGN_IN]);
 	}
 }

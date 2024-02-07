@@ -10,6 +10,10 @@ import { PaginationComponent } from '../../molecules/pagination/pagination.compo
 import { SearchResultPageComponent } from '../../molecules/search-result-page/search-result-page.component';
 import { ObservedQueriesComponent } from '../../molecules/observed-queries/observed-queries.component';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '@services/auth.service';
+import { ObservedSearchQueryAsideComponent } from '../../molecules/observed-search-query-aside/observed-search-query-aside.component';
+import { EmptyStateSearchComponent } from '../../atoms/empty-state-search/empty-state-search.component';
+import { PageLogoComponent } from '../../atoms/page-logo/page-logo.component';
 
 describe('ShopPageComponent', () => {
 	let component: ShopPageComponent;
@@ -23,6 +27,9 @@ describe('ShopPageComponent', () => {
 				PaginationComponent,
 				SearchResultPageComponent,
 				ObservedQueriesComponent,
+				ObservedSearchQueryAsideComponent,
+				EmptyStateSearchComponent,
+				PageLogoComponent,
 			],
 			imports: [RouterModule.forRoot([]), FormsModule],
 			providers: [
@@ -31,7 +38,12 @@ describe('ShopPageComponent', () => {
 					provide: ShopObserverService,
 					useValue: {
 						getObservedSearchOfUser: () => NEVER,
+						getUsersObservedSearchArray$: () => {},
 					},
+				},
+				{
+					provide: AuthService,
+					useValue: {},
 				},
 			],
 		}).compileComponents();

@@ -28,6 +28,7 @@ import { PaginationService } from '@services/pagination.service';
 import { PaginationSize } from '@models/PaginationSize';
 import { Pagination } from '@models/Pagination.model';
 import { combineLatest } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
 	selector: 'app-shop-page',
@@ -56,6 +57,7 @@ export class ShopPageComponent implements OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private shopService: ShopsService,
+		private authService: AuthService,
 		private shopObserver: ShopObserverService,
 		private paginationService: PaginationService
 	) {}
@@ -167,6 +169,10 @@ export class ShopPageComponent implements OnInit {
 
 	public openSidebar(): void {
 		this.showSidebar = true;
+	}
+
+	public signOut(): void {
+		this.authService.signOut();
 	}
 }
 

@@ -33,13 +33,21 @@ button.btn {
 	background: #fafafa;
 	border-style: solid;
 	border-width: 1px;
-	border-color: #efefef;
+	border-color: #d8d8d8;
 	min-height: 44px;
 	min-width: 44px;
 	display: grid;
-	align-content: center;
-	justify-content: center;
+	align-items: center;
+	justify-items: center;
 	font-size: 14px;
+	grid-auto-flow: column;
+	column-gap: 8px;
+	padding: 4px 12px;
+
+	&:not(:disabled):hover {
+		background: rgb(234, 234, 234);
+		border-color: #cecece;
+	}
 
 	&:disabled {
 		opacity: .5;
@@ -49,12 +57,24 @@ button.btn {
 	&.btn-light {
 		background: transparent;
 		border-color: transparent;
+
+		&:not(:disabled):hover {
+			background: rgba(103, 103, 103, 0.1);
+			border-color: transparent;
+		}
 	}
 
 	&.btn-round {
-		border-radius: 100%;
-		height: 44px;
+		border-radius: 44px;
+	}
+
+	&.btn-icon {
 		width: 44px;
+		height: 44px;
+		padding: 0;
+		display: grid;
+		justify-items: center;
+		align-items: center;
 	}
 
 	&.btn-floating {
@@ -188,6 +208,15 @@ span {
 			font-size: 2em;
 			vertical-align: bottom;
 			transform: scale(-1, 1) rotate(225deg);
+		}
+	}
+
+	&.icon-standby {
+		&::after {
+			content: "⌽";
+			font-size: 1.4em;
+			vertical-align: middle;
+			font-weight: bold;
 		}
 	}
 }

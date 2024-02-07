@@ -17,7 +17,7 @@ export class ShopResolver {
 		return this.shopService.getShop(shopId).pipe(
 			catchError((error) => {
 				console.error(error);
-				this.router.navigate([Route.HOME]);
+				this.router.navigate([Route.SHOPS, '9d1tQD9mw4CEetutLv7c']);
 				return EMPTY;
 			})
 		);

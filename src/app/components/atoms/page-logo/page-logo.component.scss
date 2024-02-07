@@ -4,8 +4,18 @@
 	grid-template-rows: 32px;
 	column-gap: 8px;
 
+	&.large {
+		column-gap: 16px;
+
+		& {
+			grid-template-columns: 64px auto;
+			grid-template-rows: 64px;
+		}
+	}
+
 	@media only screen and (min-width: 64em) {
 		column-gap: 16px;
+
 		& {
 			grid-template-columns: 64px auto;
 			grid-template-rows: 64px;
@@ -26,6 +36,13 @@
 		}
 	}
 
+	&.large h1 {
+		& {
+			line-height: 1.75em;
+			font-size: 2em;
+		}
+	}
+
 	span.page-icon {
 		display: block;
 		background-image: url('/assets/images/binoculars_32.png');
@@ -36,6 +53,12 @@
 			& {
 				background-image: url('/assets/images/binoculars_64.png');
 			}
+		}
+	}
+
+	&.large span.page-icon {
+		& {
+			background-image: url('/assets/images/binoculars_64.png');
 		}
 	}
 }

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchQueryComponent } from './search-query.component';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 describe('SearchQueryComponent', () => {
 	let component: SearchQueryComponent;
@@ -8,7 +9,7 @@ describe('SearchQueryComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [SearchQueryComponent],
+			declarations: [SearchQueryComponent, SpinnerComponent],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(SearchQueryComponent);

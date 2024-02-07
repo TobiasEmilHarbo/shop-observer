@@ -1,7 +1,14 @@
 <header>
 	<app-page-logo></app-page-logo>
-	<button class="btn btn-round" (click)="openSidebar()">
+	<button
+		class="btn btn-round btn-icon open-query-sidebar"
+		(click)="openSidebar()"
+	>
 		<span class="icon-sidebar"></span>
+	</button>
+
+	<button class="btn btn-round btn-icon sign-out" (click)="signOut()">
+		<span class="icon-standby"></span>
 	</button>
 </header>
 
