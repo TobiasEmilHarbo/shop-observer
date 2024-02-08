@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, take, tap } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 import { AuthService } from '@services/auth.service';
 import { Route } from '../app-routing.module';
 
@@ -13,10 +13,11 @@ export class GuestGuard {
 	public canActivate(): Observable<boolean> {
 		return this.authService.userAuthentication$.pipe(
 			take(1),
-			tap((isAuthenticated) => {
-				if (!!isAuthenticated) {
-					this.router.navigate([Route.HOME]);
+			map((isAuthenticated) => {
+				if (isAuthenticated) {
+					this.router.navigate([Route.SHOPS, '9d1tQD9mw4CEetutLv7c']);
 				}
+				return !isAuthenticated;
 			})
 		);
 	}
