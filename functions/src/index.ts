@@ -29,7 +29,7 @@ main.use(
 		origin: [
 			'http://localhost:4200',
 			'https://shop-observer.web.app',
-			'https://shop-observer.firebaseapp.com/',
+			'https://shop-observer.firebaseapp.com',
 		],
 	})
 );
