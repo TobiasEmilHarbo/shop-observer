@@ -34,4 +34,8 @@ export class SearchFieldComponent implements OnInit, OnDestroy {
 	public ngOnDestroy(): void {
 		this.debouncer.unsubscribe();
 	}
+
+	public clear(): void {
+		this.doSearch.emit('');
+	}
 }

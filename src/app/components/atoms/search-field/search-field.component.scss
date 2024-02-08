@@ -1,8 +1,33 @@
-input {
-	padding: 13px 16px;
-	width: 100%;
-	border-radius: 8px;
-	font-size: 14px;
-	line-height: 16px;
-	border: solid 1px #dadada;
+:host {
+	display: grid;
+
+	input {
+		padding: 13px 16px;
+		width: 100%;
+		border-radius: 8px;
+		font-size: 14px;
+		line-height: 16px;
+		border: solid 1px #dadada;
+		grid-column: 1;
+		grid-row: 1;
+	}
+
+ 	button.show + input {
+		padding-right: 40px;
+	}
+
+	button {
+		z-index: 1;
+		display: none;
+		grid-column: 1;
+		grid-row: 1;
+		justify-self: end;
+		background-color: transparent;
+		border-color: transparent;
+		width: 44px;
+
+		&.show {
+			display: block;
+		}
+	}
 }

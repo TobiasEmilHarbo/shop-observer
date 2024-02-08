@@ -1,3 +1,7 @@
+<button [ngClass]="{ show: !!queryString }">
+	<span class="icon-x" (click)="clear()"></span>
+</button>
+
 <input
 	type="text"
 	[(ngModel)]="queryString"

@@ -46,7 +46,7 @@ button.btn {
 
 	&:not(:disabled):hover {
 		background: rgb(234, 234, 234);
-		border-color: #cecece;
+		border-color: #dfdfdf;
 	}
 
 	&:disabled {
@@ -197,9 +197,16 @@ span {
 		}
 	}
 
-	&.icon-sidebar {
+	&.icon-open-right-sidebar {
 		&::after {
 			content: "⇽⟦";
+			font-size: 1.5em;
+		}
+	}
+
+	&.icon-close-right-sidebar {
+		&::after {
+			content: "⇾⟦";
 			font-size: 1.5em;
 		}
 	}

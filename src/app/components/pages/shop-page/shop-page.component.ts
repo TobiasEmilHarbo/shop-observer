@@ -124,13 +124,13 @@ export class ShopPageComponent implements OnInit {
 			})
 		);
 
-		this.observeQueryButtonDisabling$ = merge(
+		this.observeQueryButtonDisabling$ = combineLatest([
 			this.searchString$.pipe(
 				startWith(''),
-				map((searchString) => searchString === '')
+				map((searchString) => !searchString)
 			),
-			this.queryHasBeenAddedStatus$
-		);
+			this.queryHasBeenAddedStatus$,
+		]).pipe(map((values) => values.some((value) => value)));
 	}
 
 	public doSearch(query: string): void {

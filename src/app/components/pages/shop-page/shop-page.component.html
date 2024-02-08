@@ -66,7 +66,7 @@
 		class="btn btn-round btn-icon btn-floating open-query-sidebar"
 		(click)="openSidebar()"
 	>
-		<span class="icon-sidebar"></span>
+		<span class="icon-open-right-sidebar"></span>
 	</button>
 
 	<button
@@ -87,8 +87,8 @@
 <app-overlay (dismiss)="dismissSidebar()" [ngClass]="{ show: showSidebar }">
 	<aside>
 		<header>
-			<button class="btn btn-round" (click)="dismissSidebar()">
-				<span class="icon-x"></span>
+			<button class="btn btn-icon btn-round" (click)="dismissSidebar()">
+				<span class="icon-close-right-sidebar"></span>
 			</button>
 		</header>
 		<app-observed-search-query-aside
