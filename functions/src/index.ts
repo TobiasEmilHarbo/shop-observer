@@ -7,6 +7,7 @@ import * as admin from 'firebase-admin';
 admin.initializeApp();
 
 import shopApi from './api/v1/shopApi';
+import auth from './middleware/auth.middleware';
 import ShopObserver from './services/ShopObserver';
 
 export * as searchQueries from './collections/searchQuery';
@@ -25,10 +26,14 @@ main.use(bodyParser.json());
 main.use(bodyParser.urlencoded({ extended: false }));
 main.use(
 	cors({
-		origin: ['http://localhost:4200', 'https://shop-observer.web.app'],
+		origin: [
+			'http://localhost:4200',
+			'https://shop-observer.web.app',
+			'https://shop-observer.firebaseapp.com/',
+		],
 	})
 );
-main.use('/v1', v1);
+main.use('/v1', auth, v1);
 
 main.use('/check-saved-search-queries', async (_, response) => {
 	await shopObserver.queueSearchQueriesForInspection();
