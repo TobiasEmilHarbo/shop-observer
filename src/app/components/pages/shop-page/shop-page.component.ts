@@ -134,6 +134,7 @@ export class ShopPageComponent implements OnInit {
 	}
 
 	public doSearch(query: string): void {
+		this.showSidebar = false;
 		this.searchQuery$.next({
 			searchString: query,
 		});
