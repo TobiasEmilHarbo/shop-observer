@@ -1,22 +1,9 @@
 /* eslint-disable max-len */
-import { Observable, of } from 'rxjs';
 import Item from '../../../domain/Item';
 import Page from '../../../domain/Page';
 import { WebshopService } from '../WebshopService';
 
 export default class MockWebshopService implements WebshopService {
-	public getName(): string {
-		throw new Error('Method not implemented.');
-	}
-
-	public getHost(): string {
-		throw new Error('Method not implemented.');
-	}
-
-	public getLogoUrl(): Observable<string> {
-		return of('http://localhost:4200/assets/images/binoculars_64.png');
-	}
-
 	public getItemsFromAllPages(query: string): Promise<Item[]> {
 		console.log('getItemsFromAllPages', query);
 		return new Promise((resolve) => {

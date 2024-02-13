@@ -1,12 +1,13 @@
-<style> h1 { color:red; }</style>
 <h1>Hej fra Shop Observer</h1>
 
-<p>Der er nye produkter fundet på en søgning, du har sat mig til at observerer</p>
+<p>Der er nye produkter fundet på en søgning, du har sat overvågning på.</p>
 
-<h3><a href="{{shopUrl}}">{{shopName}}</a></h3>
+<h3>Fra webshoppen <a href="{{searchQuery.shop.url}}">{{searchQuery.shop.name}}</a></h3>
+<p>Søge ord: <strong>{{searchQuery.searchString}}</strong></p>
 
-<ul>
-  {{#each items}}
-    <li>{{this.name}}</li>
-  {{/each}}
+<p>Nye produkter:</p>
+<ul style="list-style-type: none; padding: 0;">
+	{{#each items}}
+	<li><a href="{{this.url}}">{{this.name}}</a></li>
+	{{/each}}
 </ul>
